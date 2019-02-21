@@ -3,28 +3,11 @@ layout: page
 title: About
 ---
 
-<p class="message">
-  Hey there! This page is included as an example. Feel free to customize it for your own use upon downloading. Carry on!
-</p>
+# Why is this here?
+This blog is based on my belief that no matter the size of the organization, there are a number of IT technologies, practices and processes that must be implemented.  It is informed by the reality that smaller organizations face significant constraints in talent, money and time.
 
-In the novel, *The Strange Case of Dr. Jekyll and Mr. Hyde*, Mr. Poole is Dr. Jekyll's virtuous and loyal butler. Similarly, Poole is an upstanding and effective butler that helps you build Jekyll themes. It's made by [@mdo](https://twitter.com/mdo).
+# Who is this for?
+This site is for anyone who owns the information technology function in their organization in part or whole.  Frequently, this is going to be someone who does not have an enterprise technology background.  Sometimes, IT may not be how they have chosen to waste their college education and technology responsibilities may be heaped onto their real job.  Often it will be someone who is directing rather than performing the work.  Whatever the case, they face internal and external requirements to implement a sound IT Platform.
 
-There are currently two themes built on Poole:
-
-* [Hyde](http://hyde.getpoole.com)
-* [Lanyon](http://lanyon.getpoole.com)
-
-Learn more and contribute on [GitHub](https://github.com/poole).
-
-## Setup
-
-Some fun facts about the setup of this project include:
-
-* Built for [Jekyll](http://jekyllrb.com)
-* Developed on GitHub and hosted for free on [GitHub Pages](https://pages.github.com)
-* Coded with [Sublime Text 2](http://sublimetext.com), an amazing code editor
-* Designed and developed while listening to music like [Blood Bros Trilogy](https://soundcloud.com/maddecent/sets/blood-bros-series)
-
-Have questions or suggestions? Feel free to [open an issue on GitHub](https://github.com/poole/poole/issues/new) or [ask me on Twitter](https://twitter.com/mdo).
-
-Thanks for reading!
+# Who would do such a thing?
+I have many (many, many) years of experience managing the technology function for small (< 300 user) organizations.  My interest is on building environments that are secure, efficient and reliable.  I've had the opportunity to do this for a number of companies, all of them having IT needs disproportionately greater than their IT resources.

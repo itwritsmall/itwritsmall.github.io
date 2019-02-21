@@ -21,6 +21,11 @@ author:
   url:               http://www.monigold.com
   email:             feedback@itwritsmall.com
 
+# GEM- add top of site navigation
+pages_list:
+  About: '/about'
+  Archive: '/archive'
+
 # Custom vars
 version:             2.0.0
 github:
