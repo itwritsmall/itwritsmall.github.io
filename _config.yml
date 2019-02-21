@@ -2,9 +2,9 @@
 permalink:           pretty
 
 # Setup
-title:               Poole
-tagline:             The Jekyll Butler
-url:                 http://getpoole.com
+title:              IT Writ Small
+tagline:             Big IT for Small Organizations
+url:                 http://www.itwritsmall.com
 paginate:            1
 baseurl:             ""
 
@@ -17,9 +17,9 @@ sass:
 
 # About/contact
 author:
-  name:              Mark Otto
-  url:               https://twitter.com/mdo
-  email:             markdotto@gmail.com
+  name:              Greg Monigold
+  url:               http://www.monigold.com
+  email:             feedback@itwritsmall.com
 
 # Custom vars
 version:             2.0.0
