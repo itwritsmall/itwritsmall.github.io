@@ -32,6 +32,7 @@ github:
   repo:              https://github.com/poole/poole
 
 # Gems
-gems:
+# gems: <- deprecated GEM
+plugins:
   - jekyll-paginate
   - jekyll-gist
