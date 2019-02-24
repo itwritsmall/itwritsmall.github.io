@@ -25,6 +25,8 @@ author:
 pages_list:
   About: '/about'
   Archive: '/archive'
+  Categories: '/categories'
+  Tags: '/tags'
 
 # Custom vars
 version:             2.0.0

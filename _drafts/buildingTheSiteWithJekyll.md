@@ -3,7 +3,7 @@
 layout: post
 title: "How to set up a web site using Jekyll on Windows Subsystem for Linux (WSL)"
 categories: [tutorial]
-tags: [windows10,jekyll,git,github]
+tags: [windows10, jekyll, git, github]
 
 ---
 
@@ -225,6 +225,6 @@ The following resources were useful in creating this tutorial:
 
 ### Revision History
 * 02/18/2019- Writing begins
-- Content review
-- Style Guide review
-- Published
+* Content review-
+* Style Guide review-
+* Published-
