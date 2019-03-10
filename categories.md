@@ -5,20 +5,25 @@ title: Categories
 ---
 
 
-<div id="archives">
-{% for category in site.categories %}
-  <div class="archive-group">
-    {% capture category_name %}{{ category | first }}{% endcapture %}
-    <div id="#{{ category_name | slugize }}"></div>
-    <p></p>
-    
-    <h3 class="category-head">{{ category_name }}</h3>
-    <a name="{{ category_name | slugize }}"></a>
-    {% for post in site.categories[category_name] %}
-    <article class="archive-item">
-      <h4><a href="{{ site.baseurl }}{{ post.url }}">{{post.title}}</a></h4>
-    </article>
-    {% endfor %}
-  </div>
+
+
+{% assign categories = site.categories | sort %}
+
+{% for category in categories %}
+  <a href="#{{ category[0] }}">{{ category[0] | capitalize }}</a>- {{ category[1].size }} &nbsp;
 {% endfor %}
-</div>
+
+{% for category in categories %}
+  <h3><a name="{{ category[0] }}">{{ category[0] | capitalize }}</a></h3>
+  
+  <ul>
+
+  {% assign posts = category[1]  | sort %}
+
+  {% for post in posts %}
+    <li><a href="{{post.url}}">{{post.title}}</a>-&nbsp;{{ post.date | date: "%m/%d/%Y" }}<br>{{ post.excerpt | strip_html | truncatewords: 20 }}
+    </li>
+  {%endfor%}
+  
+  </ul>
+{% endfor %}

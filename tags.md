@@ -5,20 +5,24 @@ title: Tags
 ---
 
 
-<div id="archives">
-{% for tag in site.tags %}
-  <div class="archive-group">
-    {% capture tag_name %}{{ tag | first }}{% endcapture %}
-    <div id="#{{ tag_name | slugize }}"></div>
-    <p></p>
-    
-    <h3 class="tag-head">{{ tag_name }}</h3>
-    <a name="{{ tag_name | slugize }}"></a>
-    {% for post in site.tags[tag_name] %}
-    <article class="archive-item">
-      <h4><a href="{{ site.baseurl }}{{ post.url }}">{{post.title}}</a></h4>
-    </article>
-    {% endfor %}
-  </div>
+
+{% assign tags = site.tags | sort %}
+
+{% for tag in tags %}
+  <a href="#{{ tag[0] }}">{{ tag[0] | capitalize }}</a>- {{ tag[1].size }} &nbsp;
 {% endfor %}
-</div>
+
+{% for tag in tags %}
+  <h3><a name="{{ tag[0] }}">{{ tag[0] | capitalize }}</a></h3>
+  
+  <ul>
+
+  {% assign posts = tag[1]  | sort %}
+
+  {% for post in posts %}
+    <li><a href="{{post.url}}">{{post.title}}</a>-&nbsp;{{ post.date | date: "%m/%d/%Y" }}<br>{{ post.excerpt | strip_html | truncatewords: 20 }}
+    </li>
+  {%endfor%}
+  
+  </ul>
+{% endfor %}

@@ -2,12 +2,11 @@
 
 layout: post
 title: "Adding Categories and Tags to the Jekyll Poole Theme"
-categories: [category]
-tags: [tag, tag, tag, tag]
+categories: [tutorial]
+tags: [Jekyll, Poole Theme, Markdown, Liquid]
+excerpt: Integrating Ctegories and Tags into the Poole Theme for Jekyll
 
 ---
-
-# Adding Categories and Tags to the Jekyll Poole Theme
 
 ### Introduction
 Categories and Tags are a common blogging tool.  Jekyll supports them natively, here's how to add them into the Poole Theme.
@@ -34,7 +33,7 @@ You can preview the site locally using the `jekyll serve` command but you'll als
 
 ## Step 1- Adding Categories and Tags to Posts and Pages
 
-Let's start with the easy part.  If you want to use categories and/or tags you'll have to add them to your posts and pages.  Simple enough, open a post up with a text editor and into the front matter (the stuff between the `---` that probably inlcudes `layout:` and `title:`) tags, put something like this
+Let's start with the easy part.  If you want to use categories and/or tags you'll have to add them to your posts and pages.  Simple enough, open a post up with a text editor and into the front matter (the stuff between the `---` that probably includes `layout:` and `title:`) tags, put something like this
 
 `categories: [category]`  
 `tags: [tag, tag, tag, tag]`
@@ -45,7 +44,7 @@ Save it up, next we will make each page or post display the categories and tags 
 
 ## Displaying Categories and Tags on Posts and Pages
 
-Open up the \_layouts\post.html.
+Open up the `\_layouts\post.html`.
 
 You can put this wherever you'd like, but to put the Categories and Tags assigned to the post underneath the title add the following code in between the `<time datetime="{{ page.date | date_to_xmlschema }}" class="post-date">{{ page.date | date_to_string }}</time>` and `{{ content }}` lines:
 

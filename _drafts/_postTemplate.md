@@ -4,10 +4,8 @@ layout: post
 title: "Title"
 categories: [category]
 tags: [tag, tag, tag, tag]
-
+excerpt: How to <accomplish a task> with <software> on <distro>.
 ---
-
-# Title
 
 How to <accomplish a task> with <software> on <distro>.
 

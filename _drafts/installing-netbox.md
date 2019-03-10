@@ -4,7 +4,7 @@ layout: post
 title: "Installing Netbox with Apache and PostgreSQL on Ubuntu 18.x"
 categories: [tutorial]
 tags: [netbox, apache, postgresql, ubuntu]
-
+excerpt: How-to install Digital Ocean's Netbox on Ubuntu Server
 ---
 
 # Installing Netbox with Apache and PostgreSQL on Ubuntu 18.x
@@ -30,12 +30,12 @@ As an example, if your server name is your_server, create a host record for that
 
 Open the repository source file:
 
-``` console
+``` bash
 $ sudo nano /etc/apt/sources.list
 ```
 
 Add universe at the end of each line, like this:
-``` console
+``` config
 deb http://archive.ubuntu.com/ubuntu bionic main universe
 deb http://archive.ubuntu.com/ubuntu bionic-security main universe 
 deb http://archive.ubuntu.com/ubuntu bionic-updates main universe
@@ -45,7 +45,7 @@ Save and quit the text editor then update and upgrade your base install.
 
 Now, update the packages list and upgrade any that are not current.
 
-``` console
+``` bash
 $ sudo apt-get update
 $ sudo apt-get upgrade
 ```
