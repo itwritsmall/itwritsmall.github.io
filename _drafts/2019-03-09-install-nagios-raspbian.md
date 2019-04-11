@@ -1,15 +1,15 @@
 ---
 
 layout: post
-title: "Installing Nagios with Apache on Raspbian"
+title: "Installing Nagios with Apache on Raspbian or Ubuntu"
 categories: [tutorial]
-tags: [nagios, raspbian, apache, monitor, alert]
+tags: [nagios, raspbian, ubuntu, apache, monitor, alert]
 excerpt: "How to install Nagios with Apache on Raspbian to monitor your small/home network"
 
 ---
 
 ### Introduction
-Nagios is a legacy program amongst many, many more polished open source monitoring programs.  In it's free form, it's not what anyone would choose in a large environment.  Still, for single site, small-ish networks (say, less than 100 devices) it's easy to set up, doesn't require a lot of resources, and is extremely flexible.
+Nagios is a legacy program among many, many more polished open source monitoring programs.  In its free form, it's not what anyone would choose in a large environment.  Still, for single site, small-ish networks (say, less than 100 devices) it's easy to set up, doesn't require a lot of resources, and is extremely flexible.
 
 ## Goals
 In this tutorial, you will see how to:
@@ -18,19 +18,25 @@ In this tutorial, you will see how to:
 * Edit the Nagios configuration files to start simple up/down monitoring of your network
 
 ## Prerequisites
-Part of the purpose of this tutorial is to show that you can do something useful on your home/small network on a Raspberry Pi, so it's kind of a prerequisite but you could also follow along with this on most Debian Linux variations on minimal hardware (real or virtual) and end up with a working installation.
+Part of the purpose of this tutorial is to show that you can do something useful on your home/small network using a Raspberry Pi.  If you follow along with this you will accomplish that goal.  I've also checked the tutorial against an Ubuntu Server installation.  If you want a more production ready installation you can allocate real or virtual resources to that.
 
 ### Raspberry Pi
-I'm running this installation on a Model B Plus Rev 1.2 Raspberry Pi witha 64GB SD card.  I'm guessing a little less would work and a little more would get the job done too.
+I'm running this installation on a Model B Plus Rev 1.2 Raspberry Pi with a 64GB SD card.  I'm guessing a little less would work and a little more would get the job done too.
+
+### or Virtual Resources
+I've also tested this on fairly minimal virtual resources.  Specifically a Hyper-V instance with 1GB of memory and 40GB of hard drive space.  The virtualization platform you choose should matter little and more resources wouldn't hurt.
 
 ### Raspbian Installation
 I'm running the 2018-11-13 Stretch Lite version Of Raspbian.  The remainder of the configuration options aren't important (other than getting it onto your network) to this but you'll probably be well served by configuring an SSH connection to do the set up and future management.
 
-ALso, make sure you've upgraded your installation before starting by doing the following:
+### or Ubuntu Installation
+
+
+Also, make sure you've upgraded your installation before starting by doing the following:
 
 ```bash
-sudo apt-get update
-sudo apt-get upgrade
+$ sudo apt-get update
+$ sudo apt-get upgrade
 ```
 
 Let's get started then.
@@ -49,7 +55,7 @@ We'll do a simple install of Nagios to get you started doing some simple monitor
 To display the Nagios Web Interface you will need to install Apacha and PHP.
 
 ``` bash
-sudo apt install apache2 libapache2-mod-php7.0 php7.0
+$ sudo apt install apache2 libapache2-mod-php7.0 php7.0
 ```
 
 > **Note:** If you want to see if these packages are installed already use the `apt list --installed` command.
@@ -59,7 +65,7 @@ After installing these packages, configure `php`.
 Set the `php` timezone:
 
 ``` bash
-sudo nano /etc/php/7.0/apache2/php.ini
+$ sudo nano /etc/php/7.0/apache2/php.ini
 ```
 
 Change;
@@ -80,14 +86,14 @@ Like such:
 Create a `php.info` file:
 
 ``` bash
-sudo echo '<?php phpinfo(): ?>' | tee /var/www/htl/info.php
+$ sudo echo '<?php phpinfo(): ?>' | tee /var/www/htl/info.php
 ```
 
 Now, enable a couple of Apache Modules
 
 ``` bash
-sudo a2enmod rewrite
-sudo a2enmod cgi
+$ sudo a2enmod rewrite
+$ sudo a2enmod cgi
 ```
 
 Both commands will inform you that the `apache2` service needs to be restarted.
@@ -97,13 +103,13 @@ Both commands will inform you that the `apache2` service needs to be restarted.
 Let's follow that advice and restart `apache2`:
 
 ``` bash
-sudo systemctl restart apache2
+$ sudo systemctl restart apache2
 ```
 
 Test that Apache is running:
 
 ``` bash
-sudo netstat -tlpn
+$ sudo netstat -tlpn
 ```
 
 You should see something similar to this:
@@ -128,12 +134,12 @@ Cool, you're serving up PHP pages on Apache.  Let's get into the Nagios stuff.
 The Nagios program needs a user to run as.  Create the user by:
 
 ``` bash
-sudo useradd -m nagios
+$ sudo useradd -m nagios
 ```
 Then set a password for the user:
 
 ``` bash
-sudo passwd nagios
+$ sudo passwd nagios
 ```
 
 You will set and confirm the password like this:
@@ -142,18 +148,18 @@ You will set and confirm the password like this:
 Now, set up a group `nagcmd` that you can give some rights to:
 
 ``` bash
-sudo groupadd nagcmd
+$ sudo groupadd nagcmd
 ```
 
 Now add the `nagios` user you created to the group so that it gets those rights:
 
 ``` bash
-sudo usermod -a -G nagcmd nagios
+$ sudo usermod -a -G nagcmd nagios
 ```
 
 Also add the `www-data` user to that group.  
 ``` bash
-sudo usermod -a -G nagcmd www-data
+$ sudo usermod -a -G nagcmd www-data
 ```
 
 You've got a `nagios` user account waiting to do some work.  Let's install Nagios to give her a place to do that.
@@ -165,8 +171,8 @@ We're going to download the latest version of Nagios Core and install it from so
 Change into the home directory and get the latest version (4.4.3 as of this writing) of Nagios Core:
 
 ``` bash
-cd ~
-sudo wget https://assets.nagios.com/downloads/nagioscore/releases/nagios-4.4.3.tar.gz
+$ cd ~
+$ sudo wget https://assets.nagios.com/downloads/nagioscore/releases/nagios-4.4.3.tar.gz
 ```
 
 You'll see the progress of the download:
@@ -175,14 +181,14 @@ You'll see the progress of the download:
 Once it is all downloaded, unpack the files:
 
 ``` bash
-sudo tar zxvf nagios-4.4.3.tar.gz
+$ sudo tar zxvf nagios-4.4.3.tar.gz
 ```
 
 Let's start building Nagios.  First confiugre the source code:
 
 ``` bash
-cd nagios-4.4.3
-sudo ./configure --with-command-group=nagcmd
+$ cd nagios-4.4.3
+$ sudo ./configure --with-command-group=nagcmd
 ```
 This will take some time, and you'll see a lot of this:
 ![image]({{site.url}}/assets/2019-03-09-install-nagios-raspbian/configureNagiosCoreProgress.png)
@@ -193,7 +199,7 @@ Wrapping up with something like this:
 Now we've got configured the Nagios Core source.  Let's get to the compiling:
 
 ``` bash
-sudo make all
+$ sudo make all
 ```
 
 Now if you're doing this on the Pi, you're going to have some time while it cranks through the work like this:
@@ -225,7 +231,7 @@ $ sudo install -c -m 644 sample-config/httpd.conf /etc/apache2/sites-enabled/nag
 Finally, let's set a password for the Nagios Admin (`nagiosadmin`) user that you will use to log into the web interface.
 
 ```bash
-sudo htpasswd -c /usr/local/nagios/etc/htpasswd.users nagiosadmin
+$ sudo htpasswd -c /usr/local/nagios/etc/htpasswd.users nagiosadmin
 ```
 This command will present you with a familiar set/confirm password process.
 
@@ -234,7 +240,7 @@ This command will present you with a familiar set/confirm password process.
 Let's bounce Apache.
 
 ``` bash
-sudo systemctl restart apache2
+$ sudo systemctl restart apache2
 ```
 
 Test your work by pointing a web browser at `http://<machine name or IP>/nagios`.  You'll get an authentication prompt:
@@ -252,23 +258,23 @@ We've got everything we need to do simple monitoring.  Let's do a little get-ahe
 There is a set of Plugins maintained that will let you do more than simple up-down monitoring.  While we won't configure anything more than up-down monitors in this tutorial, we will install the plugins for future use.  Let's get the current version of the Nagios Plugins:
 
 ``` bash
-sudo wget https://nagios-plugins.org/download/nagios-plugins-2.2.1.tar.gz
+$ sudo wget https://nagios-plugins.org/download/nagios-plugins-2.2.1.tar.gz
 ```
 
 Now, extract the compressed files.
 
 ``` bash
-sudo tar zxvf nagios-plugins-2.2.1.tar.gz
+$ sudo tar zxvf nagios-plugins-2.2.1.tar.gz
 ```
 
 Next roll through the Plugin install process.  Configure.  Compile.  Install.
 
 ``` bash
-cd ~
-cd nagios-plugins-2.2.1
-sudo ./configure --with-nagios-user=nagios --with-nagios-group=nagcmd
-sudo make
-sudo make install
+$ cd ~
+$ cd nagios-plugins-2.2.1
+$ sudo ./configure --with-nagios-user=nagios --with-nagios-group=nagcmd
+$ sudo make
+$ sudo make install
 ```
 > **Warning:** Both the `configure` and `make` command will take some time.
 
@@ -279,13 +285,13 @@ That installs your plug-ins.  We won't use them right out of the chute, but they
 You (obviously?) want Nagios to be running more or less continuously.  This is a simple process.  Create a dynamic link from `nagios` in the `init.d` directory to the `rcS.d` directory
 
 ``` bash
-sudo ln -s /etc/init.d/nagios /etc/rc.d/nagios
+$ sudo ln -s /etc/init.d/nagios /etc/rc.d/nagios
 ```
 
 Now, let's start up Nagios for the first time.  We'll do that and provide the switch to verify the configuration file (not that we added anything to it...yet).
 
 ``` bash
-sudo /usr/local/nagios/bin/nagios -v /usr/local/nagios/etc/nagios.cfg
+$ sudo /usr/local/nagios/bin/nagios -v /usr/local/nagios/etc/nagios.cfg
 ```
 
 If everything checks out, and it should you will see this.
@@ -323,8 +329,8 @@ Scroll down and find the section titled `#OBJECT CONFIGURATION FILE(S)`, then ad
 Now create a host file that's named and located where you told the `nagios.cfg` file it would be.
 
 ``` bash
-cd /usr/local/nagios/etc/objects
-sudo nano <descriptive name you specified>.cfg
+$ cd /usr/local/nagios/etc/objects
+$ sudo nano <descriptive name you specified>.cfg
 ```
 
 In the file, create as many host definitions as you like.  Again, this is for really simple monitoring right now so we're going to do the simplest configuration.  The format for the host definitions is:
@@ -349,7 +355,7 @@ The `host_name` is the fully qualified domain name of the host.  In the `alias` 
 Save up the file.  Nagios won't use the new configurations until you reload the service.  You can do it like this.  First check the configuration:
 
 ``` bash
-sudo /usr/local/nagios/bin/nagios -v /usr/local/nagios/etc/nagios.cfg
+$ sudo /usr/local/nagios/bin/nagios -v /usr/local/nagios/etc/nagios.cfg
 ```
 
 You should see something like this (depending on how many hosts you defined):
@@ -373,13 +379,16 @@ The **Status** will show **PENDING** until the check runs.  You can see when tha
 And that's it (for now), you've got up/down monitoring for as many hosts as you want to add.
 
 ## Conclusion
-End result, you should have simple monitoring for your network.  Which is great, but it's simple.  There's a lot more monitoring **and** alerting that Nagios can do for you.  Checking more services than just `ping`, e-mail alerts, grouping hosts into groups, storing historical data is all possible.  I've just got to spend some time setting it up and (of course) writing it down.
+End result, you should have simple monitoring for your network.  That's great, but it's simple.  There's a lot more monitoring **and** alerting that Nagios can do for you.  Checking more services than just `ping`, e-mail alerts, grouping hosts into groups, storing historical data is all possible.  I've just got to spend some time setting it up and (of course) writing it down.
+
+### What to do next
+* The next logical step is to make Nagios send you e-mail alerts.  Here's the tutorial for that: https://{{site.url}}/_posts/20019-03-09-install-postfix-nagios.html
 
 ### Resources
+* Official Nagios Core Documentation https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/toc.html
 * https://www.digitalocean.com/community/tutorials/how-to-install-nagios-4-and-monitor-your-servers-on-centos-7
 * http://www.d3noob.org/2016/04/installing-nagios-4-on-raspberry-pi.html
 * https://poweruphosting.com/blog/install-nagios/
-
 
 ### Revision History
 * 03/09/2019- Writing begins
