@@ -4,7 +4,7 @@ layout: post
 title: "Installing Nagios with Apache on Raspbian or Ubuntu"
 categories: [tutorial]
 tags: [nagios, raspbian, ubuntu, apache, monitor, alert]
-excerpt: "How to install Nagios with Apache on Raspbian to monitor your small/home network"
+excerpt: "How to install Nagios with Apache on Raspbian or Ubuntu to monitor your small/home network"
 
 ---
 
@@ -18,21 +18,22 @@ In this tutorial, you will see how to:
 * Edit the Nagios configuration files to start simple up/down monitoring of your network
 
 ## Prerequisites
-Part of the purpose of this tutorial is to show that you can do something useful on your home/small network using a Raspberry Pi.  If you follow along with this you will accomplish that goal.  I've also checked the tutorial against an Ubuntu Server installation.  If you want a more production ready installation you can allocate real or virtual resources to that.
+Part of the purpose of this tutorial is to show that you can do something useful on your home/small network using a Raspberry Pi.  If you follow along with this you will accomplish that goal.  I've also checked the tutorial against an Ubuntu Server installation using very minimal resources.  If you want a more production ready installation you can allocate real or virtual resources to that.
 
 ### Raspberry Pi
 I'm running this installation on a Model B Plus Rev 1.2 Raspberry Pi with a 64GB SD card.  I'm guessing a little less would work and a little more would get the job done too.
 
 ### or Virtual Resources
-I've also tested this on fairly minimal virtual resources.  Specifically a Hyper-V instance with 1GB of memory and 40GB of hard drive space.  The virtualization platform you choose should matter little and more resources wouldn't hurt.
+I've also tested this on fairly minimal virtual resources.  Specifically a Hyper-V instance with a single CPU, 1GB of memory and 40GB of hard drive space.  The virtualization platform you choose should matter little and more resources wouldn't hurt.
 
 ### Raspbian Installation
-I'm running the 2018-11-13 Stretch Lite version Of Raspbian.  The remainder of the configuration options aren't important (other than getting it onto your network) to this but you'll probably be well served by configuring an SSH connection to do the set up and future management.
+I'm running the 2018-11-13 Stretch Lite version Of Raspbian.  The remainder of the configuration options aren't important (other than getting it onto your network) but you'll probably be well served by configuring an SSH connection to do the set up and future management.
 
 ### or Ubuntu Installation
+I've also tested this with an installation of Ubuntu Server 18.04.2 running on Hyper-V.  Just a basic installation, no additional software only OpenSSH.
 
-
-Also, make sure you've upgraded your installation before starting by doing the following:
+### Either OS
+Make sure you've upgraded your installation before starting by doing the following:
 
 ```bash
 $ sudo apt-get update
@@ -58,6 +59,8 @@ To display the Nagios Web Interface you will need to install Apacha and PHP.
 $ sudo apt install apache2 libapache2-mod-php7.0 php7.0
 ```
 
+> **For Ubuntu** use `sudo apt-install apache 2 liapache2-mod-php php7.0 build-essential` instead.
+
 > **Note:** If you want to see if these packages are installed already use the `apt list --installed` command.
 
 After installing these packages, configure `php`.
@@ -67,6 +70,7 @@ Set the `php` timezone:
 ``` bash
 $ sudo nano /etc/php/7.0/apache2/php.ini
 ```
+> **For Ubuntu** use `sudo nano /etc/php/7.2/apache2/php.ini`
 
 Change;
 ```
@@ -83,11 +87,15 @@ Like such:
 
 > **Note:** use the list here to find your appropriate variable: http://php.net/manual/en/timezones.america.php
 
+Save your changes.
+
 Create a `php.info` file:
 
 ``` bash
-$ sudo echo '<?php phpinfo(): ?>' | tee /var/www/htl/info.php
+$ sudo echo '<?php phpinfo(): ?>' | tee /var/www/html/info.php
 ```
+
+> **For Ubuntu** `sudo echo '<?php phpinfo(): ?>' | sudo tee /var/www/html/info.php`
 
 Now, enable a couple of Apache Modules
 
@@ -113,11 +121,13 @@ $ sudo netstat -tlpn
 ```
 
 You should see something similar to this:
+
 ![image]({{site.url}}/assets/2019-03-09-install-nagios-raspbian/testApacheNetstat.png)
 
 Which shows that `apache2` is listening for web requests at port 80.
 
 You can also go to `http://<your machine name or IP>` and see something like this:
+
 ![image]({{site.url}}/assets/2019-03-09-install-nagios-raspbian/testApacheBrowser.png)
 
 Which shows that `apache2` "works!".
@@ -125,6 +135,7 @@ Which shows that `apache2` "works!".
 Test your `php` configuration.  Open a web browser and navigate to `http:<machine ip>/info.php` and scroll down to the **Default timezone** setting and confirm.
 
 You should see the time zone you configured like:
+
 ![image]({{site.url}}/assets/2019-03-09-install-nagios-raspbian/testPhpDate.png)
 
 Cool, you're serving up PHP pages on Apache.  Let's get into the Nagios stuff.
@@ -143,6 +154,7 @@ $ sudo passwd nagios
 ```
 
 You will set and confirm the password like this:
+
 ![image]({{site.url}}/assets/2019-03-09-install-nagios-raspbian/setNagiosUserPassword.png)
 
 Now, set up a group `nagcmd` that you can give some rights to:
@@ -174,8 +186,10 @@ Change into the home directory and get the latest version (4.4.3 as of this writ
 $ cd ~
 $ sudo wget https://assets.nagios.com/downloads/nagioscore/releases/nagios-4.4.3.tar.gz
 ```
+> **Note:** Check that url in a web browser...from time to time it changes.
 
 You'll see the progress of the download:
+
 ![image]({{site.url}}/assets/2019-03-09-install-nagios-raspbian/getnagiosCoreSource.png)
 
 Once it is all downloaded, unpack the files:
@@ -190,10 +204,12 @@ Let's start building Nagios.  First confiugre the source code:
 $ cd nagios-4.4.3
 $ sudo ./configure --with-command-group=nagcmd
 ```
-This will take some time, and you'll see a lot of this:
+Using Raspbian (less so with Ubuntu/Hyper-V), this will take some time, and you'll see a lot of this:
+
 ![image]({{site.url}}/assets/2019-03-09-install-nagios-raspbian/configureNagiosCoreProgress.png)
 
 Wrapping up with something like this:
+
 ![image]({{site.url}}/assets/2019-03-09-install-nagios-raspbian/configureNagiosCoreComplete.png)
 
 Now we've got configured the Nagios Core source.  Let's get to the compiling:
@@ -213,6 +229,8 @@ The `make` command you issued is creating the Nagios Core executables, libraries
 So enjoy, but not for too long because there's a lot of installing left to be done.
 
 These steps will install and configure the binaries, documentation, web interface, external command directory, init script, sample configuration files and the web interface.
+
+Get with the make-ing.
 
 ``` bash
 $ sudo make install
@@ -243,7 +261,19 @@ Let's bounce Apache.
 $ sudo systemctl restart apache2
 ```
 
-Test your work by pointing a web browser at `http://<machine name or IP>/nagios`.  You'll get an authentication prompt:
+Start up Nagios
+First, let's make sure everything is cool with the Nagios configuration.
+
+``` bash
+$ sudo /usr/local/nagios/bin/nagios -v /usr/local/nagios/etc/nagios.cfg
+```
+Then, let's start up the Nagios program.
+
+```bash
+ $ sudo /usr/local/nagios/bin/nagios -d /usr/local/nagios/etc/nagios.cfg
+```
+
+We will make that easier in a couple of steps.  Meantime, test your work by pointing a web browser at `http://<machine name or IP>/nagios`.  You'll get an authentication prompt:
 
 ![image]({{site.url}}/assets/2019-03-09-install-nagios-raspbian/testNagiosWebInterface.png)
 
@@ -258,6 +288,7 @@ We've got everything we need to do simple monitoring.  Let's do a little get-ahe
 There is a set of Plugins maintained that will let you do more than simple up-down monitoring.  While we won't configure anything more than up-down monitors in this tutorial, we will install the plugins for future use.  Let's get the current version of the Nagios Plugins:
 
 ``` bash
+$ cd ~
 $ sudo wget https://nagios-plugins.org/download/nagios-plugins-2.2.1.tar.gz
 ```
 
@@ -276,7 +307,7 @@ $ sudo ./configure --with-nagios-user=nagios --with-nagios-group=nagcmd
 $ sudo make
 $ sudo make install
 ```
-> **Warning:** Both the `configure` and `make` command will take some time.
+> **Warning:** On Raspbian, both the `configure` and `make` command will take some time.
 
 That installs your plug-ins.  We won't use them right out of the chute, but they will allow you to do some very complex monitoring and alerting later on.  The next thing we will want to do is set up the Nagios Core as a service.
 
@@ -285,22 +316,13 @@ That installs your plug-ins.  We won't use them right out of the chute, but they
 You (obviously?) want Nagios to be running more or less continuously.  This is a simple process.  Create a dynamic link from `nagios` in the `init.d` directory to the `rcS.d` directory
 
 ``` bash
-$ sudo ln -s /etc/init.d/nagios /etc/rc.d/nagios
+$ sudo ln -s /etc/init.d/nagios /etc/rc5.d/nagios
 ```
 
-Now, let's start up Nagios for the first time.  We'll do that and provide the switch to verify the configuration file (not that we added anything to it...yet).
+Now, let's start up Nagios as a service for the first time. 
 
-``` bash
-$ sudo /usr/local/nagios/bin/nagios -v /usr/local/nagios/etc/nagios.cfg
-```
-
-If everything checks out, and it should you will see this.
-
-![image]({{site.url}}/assets/2019-03-09-install-nagios-raspbian/runNagiosSuccess.png)
-
-Last thing in this step.  Let's start Nagios.
-
-``` bash
+ ``` bash
+$ sudo /etc/init.d/nagios start
 $ sudo service nagios start
 ```
 
@@ -322,6 +344,7 @@ $ cd /usr/local/nagios/etc
 $ sudo nano nagios.cfg
 ```
 Scroll down and find the section titled `#OBJECT CONFIGURATION FILE(S)`, then add a line like `cfg_file=/usr/local/nagios/objects/<descriptive name>.cfg` similar to this:
+
 ![image]({{site.url}}/assets/2019-03-09-install-nagios-raspbian/updateNagiosConfigFile.png)
 
 > **Note:** You can add a comment in any of the Nagios config files by preceding the line with a `#`.  Remember, comments win wars.
@@ -346,6 +369,7 @@ define host {
 ```
 
 Here's an example:
+
 ![image]({{site.url}}/assets/2019-03-09-install-nagios-raspbian/sampleNagiosHostObject.png)
 
 The `host_name` is the fully qualified domain name of the host.  In the `alias` field you can put a more firendly name.  Here I used the host name and the service that runs on it.  Lastly, the `address` field is the IP address of the host you are monitoring.
@@ -392,6 +416,6 @@ End result, you should have simple monitoring for your network.  That's great, b
 
 ### Revision History
 * 03/09/2019- Writing begins
-* Content review-
+* 06/06/2019- Content review
 * Style Guide review-
 * Published-
