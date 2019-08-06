@@ -1,4 +1,4 @@
-s---
+---
 
 layout: post
 title: "Installing Nagios with Apache on Raspbian or Ubuntu"
@@ -417,5 +417,5 @@ End result, you should have simple monitoring for your network.  That's great, b
 ### Revision History
 * 03/09/2019- Writing begins
 * 06/06/2019- Content review
-* Style Guide review-
-* Published-
+* 06/06/2019- Style Guide review-
+* 06/06/2019- Published
