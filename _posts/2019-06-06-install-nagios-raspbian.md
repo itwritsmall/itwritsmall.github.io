@@ -8,8 +8,8 @@ excerpt: "How to install Nagios with Apache on Raspbian or Ubuntu to monitor you
 
 ---
 
-### Introduction
-Nagios is a legacy program among many, many more polished open source monitoring programs.  In its free form, it's not what anyone would choose in a large environment.  Still, for single site, small-ish networks (say, less than 100 devices) it's easy to set up, doesn't require a lot of resources, and is extremely flexible.
+## Introduction
+Nagios is one legacy program among many, many more polished open source monitoring programs.  In its free form, it's not what anyone would choose in a large, complex environment.  Still, for single site, small-ish networks (say, less than 100 devices) it's easy to set up, doesn't require a lot of resources, and is extremely flexible.
 
 ## Goals
 In this tutorial, you will see how to:

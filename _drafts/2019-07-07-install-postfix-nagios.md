@@ -8,7 +8,7 @@ excerpt: How to install Postfix with Nagios and Office365 on Raspbian.
 ---
 
 
-### Introduction
+## Introduction
 Once you have installed Nagios and have it configured for simple monitoring a logical next step is to configure e-mail alerting.   
 
 ## Goals
@@ -22,6 +22,8 @@ In this tutorial, I'll use Office365 as the e-mail server.  I'm guessing that us
 ### Nagios
 You'll need a working installation of Nagios running.  Here's my tutorial to accomplish that:  http://www.itwritsmall.com/2019-03-09-install-nagios-raspbian.html
 
+## Tutorial
+
 ### Step 1- Install Postfix
 You'll install `postfix` to serve as a mail server and `mailtutils` to serve as a mail client.  Nagios will use the `mailutils` client to create the e-mail message, the mail client will use the `postfix` server to send the message to Office365.  To install the programs, open a terminal session on you Nagios server and type:
 
@@ -34,9 +36,7 @@ $ sudo apt-get install mailutils
 
 Choose Internet Site, that's the most appropriate configuration for outbound mail only.
 
-``` bash 
-sudo nano /etc/postfix/main.cf
-```
+`sudo nano /etc/postfix/main.cf`
 
 ` relayhost = [smtp.office365.com]:587
 
@@ -86,7 +86,9 @@ In the file `/usr/local/nagios/etc/objects/command.cfg` append `notify-host-by-e
 
 Give Nagios someone to send to
 
-` sudo nano /usr/local/nagios/etc/objects/contacts.cfg
+``` bash
+ sudo nano /usr/local/nagios/etc/objects/contacts.cfg
+```
 
 ``` bash
 define contact {
