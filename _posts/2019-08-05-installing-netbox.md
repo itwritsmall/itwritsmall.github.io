@@ -9,7 +9,14 @@ excerpt: How-to install Digital Ocean's Netbox on Ubuntu Server
 ## Introduction
 This post will walk you through installing Digital Ocean's Netbox DCIM/IPAM application on Ubuntu Server.  The Netbox program is a Django/Python application.  In this tutorial the web application is served up by Gunicorn and Apache.  The application saves data to a PostgreSQL database.  All of this runs on Linux, in this case Ubuntu Server 18.x.
 
-## Contents
+## Goals
+In this tutorial you will:
+* Install Ubuntu Server and create some DNS Records
+* (Optionally) Install Webmin GUI
+* Install, configure and test PostgreSQL
+* Install, configure and test Netbox and Python components
+* Install, configure and test Apache and Gunicorn
+
 
 ## Prerequisites
 Ubuntu and Netbox's "stack-mates" PostgreSQL and Apache take up minimal resources.  Use the old server you just retired or carve out a small virtual machine.  For a small network, feel comfortable allocating 1GB of RAM, a single CPU and 30GB of disk space to a virtual machine instance.  Obviously you can give it more resources (within reason) and benefit, but don't hesitate to implement Netbox if you don't have a ton available.
@@ -125,9 +132,9 @@ This will put you into PostgreSQL command mode.
 To set up the database, user and privileges:
 
 ``` console
-postgres=# CREATE DATABASE <your database name>;
-postgres=# CREATE USER <your database user> WITH PASSWORD '<your password>';
-postgres=# GRANT ALL PRIVILEGES ON DATABASE <your database name> TO <your database user>;
+postgres=# CREATE DATABASE <your_database_name>;
+postgres=# CREATE USER <your_database_user> WITH PASSWORD '<your_password>';
+postgres=# GRANT ALL PRIVILEGES ON DATABASE <your_database_name> TO <your_database_user>;
 ```
 ![image]({{site.url}}/assets/2019-08-06-install-netbox/postgresDatabaseSetup.png)
 
@@ -237,9 +244,9 @@ Modify:
 
 ``` console
 DATABASE = {
-	'NAME': '<use the database name you created>',
-	'USER':'<the postgresql user you created>'
-	'PASSWORD':'<the postgresql password you specified>'
+	'NAME': '<use_the_database_name_you_created>',
+	'USER':'<the_postgresql_user_you_created>'
+	'PASSWORD':'<the_postgresql_password_you_specified>'
 }
 
 And then change:
