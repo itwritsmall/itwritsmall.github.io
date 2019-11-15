@@ -1,4 +1,4 @@
-I"�f<h2 id="introduction">Introduction</h2>
+I"f<h2 id="introduction">Introduction</h2>
 <p>Nagios is one legacy program among many, many more polished open source monitoring programs.  In its free form, it’s not what anyone would choose in a large, complex environment.  Still, for single site, small-ish networks (say, less than 100 devices) it’s easy to set up, doesn’t require a lot of resources, and is extremely flexible.</p>
 
 <h2 id="goals">Goals</h2>
@@ -78,7 +78,7 @@
 
 <p>Like such:</p>
 
-<p><img src="http://www.itwritsmall.com/assets/2019-03-09-install-nagios-raspbian/setPHPDate.png" alt="Change PHP date setting" /></p>
+<p><img src="http://localhost:4000/assets/2019-03-09-install-nagios-raspbian/setPHPDate.png" alt="Change PHP date setting" /></p>
 
 <blockquote>
   <p><strong>Note:</strong> use the list here to find your appropriate variable: http://php.net/manual/en/timezones.america.php</p>
@@ -103,7 +103,7 @@
 
 <p>Both commands will inform you that the <code class="highlighter-rouge">apache2</code> service needs to be restarted.</p>
 
-<p><img src="http://www.itwritsmall.com/assets/2019-03-09-install-nagios-raspbian/enableApacheModules.png" alt="Change PHP date setting" /></p>
+<p><img src="http://localhost:4000/assets/2019-03-09-install-nagios-raspbian/enableApacheModules.png" alt="Change PHP date setting" /></p>
 
 <p>Let’s follow that advice and restart <code class="highlighter-rouge">apache2</code>:</p>
 
@@ -117,13 +117,13 @@
 
 <p>You should see something similar to this:</p>
 
-<p><img src="http://www.itwritsmall.com/assets/2019-03-09-install-nagios-raspbian/testApacheNetstat.png" alt="image" /></p>
+<p><img src="http://localhost:4000/assets/2019-03-09-install-nagios-raspbian/testApacheNetstat.png" alt="image" /></p>
 
 <p>Which shows that <code class="highlighter-rouge">apache2</code> is listening for web requests at port 80.</p>
 
 <p>You can also go to <code class="highlighter-rouge">http://&lt;your machine name or IP&gt;</code> and see something like this:</p>
 
-<p><img src="http://www.itwritsmall.com/assets/2019-03-09-install-nagios-raspbian/testApacheBrowser.png" alt="image" /></p>
+<p><img src="http://localhost:4000/assets/2019-03-09-install-nagios-raspbian/testApacheBrowser.png" alt="image" /></p>
 
 <p>Which shows that <code class="highlighter-rouge">apache2</code> “works!”.</p>
 
@@ -131,7 +131,7 @@
 
 <p>You should see the time zone you configured like:</p>
 
-<p><img src="http://www.itwritsmall.com/assets/2019-03-09-install-nagios-raspbian/testPhpDate.png" alt="image" /></p>
+<p><img src="http://localhost:4000/assets/2019-03-09-install-nagios-raspbian/testPhpDate.png" alt="image" /></p>
 
 <p>Cool, you’re serving up PHP pages on Apache.  Let’s get into the Nagios stuff.</p>
 
@@ -148,7 +148,7 @@
 
 <p>You will set and confirm the password like this:</p>
 
-<p><img src="http://www.itwritsmall.com/assets/2019-03-09-install-nagios-raspbian/setNagiosUserPassword.png" alt="image" /></p>
+<p><img src="http://localhost:4000/assets/2019-03-09-install-nagios-raspbian/setNagiosUserPassword.png" alt="image" /></p>
 
 <p>Now, set up a group <code class="highlighter-rouge">nagcmd</code> that you can give some rights to:</p>
 
@@ -181,7 +181,7 @@
 
 <p>You’ll see the progress of the download:</p>
 
-<p><img src="http://www.itwritsmall.com/assets/2019-03-09-install-nagios-raspbian/getnagiosCoreSource.png" alt="image" /></p>
+<p><img src="http://localhost:4000/assets/2019-03-09-install-nagios-raspbian/getnagiosCoreSource.png" alt="image" /></p>
 
 <p>Once it is all downloaded, unpack the files:</p>
 
@@ -195,11 +195,11 @@
 </code></pre></div></div>
 <p>Using Raspbian (less so with Ubuntu/Hyper-V), this will take some time, and you’ll see a lot of this:</p>
 
-<p><img src="http://www.itwritsmall.com/assets/2019-03-09-install-nagios-raspbian/configureNagiosCoreProgress.png" alt="image" /></p>
+<p><img src="http://localhost:4000/assets/2019-03-09-install-nagios-raspbian/configureNagiosCoreProgress.png" alt="image" /></p>
 
 <p>Wrapping up with something like this:</p>
 
-<p><img src="http://www.itwritsmall.com/assets/2019-03-09-install-nagios-raspbian/configureNagiosCoreComplete.png" alt="image" /></p>
+<p><img src="http://localhost:4000/assets/2019-03-09-install-nagios-raspbian/configureNagiosCoreComplete.png" alt="image" /></p>
 
 <p>Now we’ve got configured the Nagios Core source.  Let’s get to the compiling:</p>
 
@@ -208,11 +208,11 @@
 
 <p>Now if you’re doing this on the Pi, you’re going to have some time while it cranks through the work like this:</p>
 
-<p><img src="http://www.itwritsmall.com/assets/2019-03-09-install-nagios-raspbian/makeNagiosCoreProgress.png" alt="image" /></p>
+<p><img src="http://localhost:4000/assets/2019-03-09-install-nagios-raspbian/makeNagiosCoreProgress.png" alt="image" /></p>
 
 <p>The <code class="highlighter-rouge">make</code> command you issued is creating the Nagios Core executables, libraries, directories, etc.  When the process wraps, you’ll see something like this:</p>
 
-<p><img src="http://www.itwritsmall.com/assets/2019-03-09-install-nagios-raspbian/makeNagiosCoreComplete.png" alt="image" /></p>
+<p><img src="http://localhost:4000/assets/2019-03-09-install-nagios-raspbian/makeNagiosCoreComplete.png" alt="image" /></p>
 
 <p>So enjoy, but not for too long because there’s a lot of installing left to be done.</p>
 
@@ -238,7 +238,7 @@
 </code></pre></div></div>
 <p>This command will present you with a familiar set/confirm password process.</p>
 
-<p><img src="http://www.itwritsmall.com/assets/2019-03-09-install-nagios-raspbian/setNagiosAdminPassword.png" alt="image" /></p>
+<p><img src="http://localhost:4000/assets/2019-03-09-install-nagios-raspbian/setNagiosAdminPassword.png" alt="image" /></p>
 
 <p>Let’s bounce Apache.</p>
 
@@ -257,11 +257,11 @@ First, let’s make sure everything is cool with the Nagios configuration.</p>
 
 <p>We will make that easier in a couple of steps.  Meantime, test your work by pointing a web browser at <code class="highlighter-rouge">http://&lt;machine name or IP&gt;/nagios</code>.  You’ll get an authentication prompt:</p>
 
-<p><img src="http://www.itwritsmall.com/assets/2019-03-09-install-nagios-raspbian/testNagiosWebInterface.png" alt="image" /></p>
+<p><img src="http://localhost:4000/assets/2019-03-09-install-nagios-raspbian/testNagiosWebInterface.png" alt="image" /></p>
 
 <p>After successfully authenticating you will see this:</p>
 
-<p><img src="http://www.itwritsmall.com/assets/2019-03-09-install-nagios-raspbian/testNagiosWebInterfaceSuccess.png" alt="image" /></p>
+<p><img src="http://localhost:4000/assets/2019-03-09-install-nagios-raspbian/testNagiosWebInterfaceSuccess.png" alt="image" /></p>
 
 <p>We’ve got everything we need to do simple monitoring.  Let’s do a little get-ahead work in the next step and install Nagios Plugins then do a little work to make Nagios start as a service.</p>
 
@@ -307,11 +307,11 @@ First, let’s make sure everything is cool with the Nagios configuration.</p>
 
 <p>If you go back to the web interface (`http://<machine name="" or="" IP="">/nagios') and look at the menu on the left side you will see a **Current Status** section.</machine></p>
 
-<p><img src="http://www.itwritsmall.com/assets/2019-03-09-install-nagios-raspbian/nagiosWebInterfaceMenu.png" alt="image" /></p>
+<p><img src="http://localhost:4000/assets/2019-03-09-install-nagios-raspbian/nagiosWebInterfaceMenu.png" alt="image" /></p>
 
 <p>Click on the <strong>Hosts</strong> selection.</p>
 
-<p><img src="http://www.itwritsmall.com/assets/2019-03-09-install-nagios-raspbian/nagiosWebInterfaceLocalhostStatus.png" alt="image" /></p>
+<p><img src="http://localhost:4000/assets/2019-03-09-install-nagios-raspbian/nagiosWebInterfaceLocalhostStatus.png" alt="image" /></p>
 
 <p>This is the status of the machine/instance that Nagios is running on.  Interesting, but not super useful.  In the next step we’ll make some modifications to Nagios config files so that you’re monitoring more hosts on your network.</p>
 
@@ -323,7 +323,7 @@ First, let’s make sure everything is cool with the Nagios configuration.</p>
 </code></pre></div></div>
 <p>Scroll down and find the section titled <code class="highlighter-rouge">#OBJECT CONFIGURATION FILE(S)</code>, then add a line like <code class="highlighter-rouge">cfg_file=/usr/local/nagios/objects/&lt;descriptive name&gt;.cfg</code> similar to this:</p>
 
-<p><img src="http://www.itwritsmall.com/assets/2019-03-09-install-nagios-raspbian/updateNagiosConfigFile.png" alt="image" /></p>
+<p><img src="http://localhost:4000/assets/2019-03-09-install-nagios-raspbian/updateNagiosConfigFile.png" alt="image" /></p>
 
 <blockquote>
   <p><strong>Note:</strong> You can add a comment in any of the Nagios config files by preceding the line with a <code class="highlighter-rouge">#</code>.  Remember, comments win wars.</p>
@@ -348,7 +348,7 @@ First, let’s make sure everything is cool with the Nagios configuration.</p>
 
 <p>Here’s an example:</p>
 
-<p><img src="http://www.itwritsmall.com/assets/2019-03-09-install-nagios-raspbian/sampleNagiosHostObject.png" alt="image" /></p>
+<p><img src="http://localhost:4000/assets/2019-03-09-install-nagios-raspbian/sampleNagiosHostObject.png" alt="image" /></p>
 
 <p>The <code class="highlighter-rouge">host_name</code> is the fully qualified domain name of the host.  In the <code class="highlighter-rouge">alias</code> field you can put a more firendly name.  Here I used the host name and the service that runs on it.  Lastly, the <code class="highlighter-rouge">address</code> field is the IP address of the host you are monitoring.</p>
 
@@ -363,7 +363,7 @@ First, let’s make sure everything is cool with the Nagios configuration.</p>
 
 <p>You should see something like this (depending on how many hosts you defined):</p>
 
-<p><img src="http://www.itwritsmall.com/assets/2019-03-09-install-nagios-raspbian/startNagiosUserPassword.png" alt="image" /></p>
+<p><img src="http://localhost:4000/assets/2019-03-09-install-nagios-raspbian/startNagiosUserPassword.png" alt="image" /></p>
 
 <p>Now, restart Nagios:</p>
 
@@ -372,11 +372,11 @@ First, let’s make sure everything is cool with the Nagios configuration.</p>
 
 <p>Open up the web interface and go to the <strong>Hosts</strong> selection in the <strong>Current Status</strong> section.  You should see:</p>
 
-<p><img src="http://www.itwritsmall.com/assets/2019-03-09-install-nagios-raspbian/newHostPending.png" alt="image" /></p>
+<p><img src="http://localhost:4000/assets/2019-03-09-install-nagios-raspbian/newHostPending.png" alt="image" /></p>
 
 <p>The <strong>Status</strong> will show <strong>PENDING</strong> until the check runs.  You can see when that will be in the <strong>Status Information</strong> column.  Once that check happens, you should see the status change to something like this:</p>
 
-<p><img src="http://www.itwritsmall.com/assets/2019-03-09-install-nagios-raspbian/newHostUp.png" alt="image" /></p>
+<p><img src="http://localhost:4000/assets/2019-03-09-install-nagios-raspbian/newHostUp.png" alt="image" /></p>
 
 <p>And that’s it (for now), you’ve got up/down monitoring for as many hosts as you want to add.</p>
 
@@ -385,7 +385,7 @@ First, let’s make sure everything is cool with the Nagios configuration.</p>
 
 <h3 id="what-to-do-next">What to do next</h3>
 <ul>
-  <li>The next logical step is to make Nagios send you e-mail alerts.  Here’s the tutorial for that: https://http://www.itwritsmall.com/_posts/20019-03-09-install-postfix-nagios.html</li>
+  <li>The next logical step is to make Nagios send you e-mail alerts.  Here’s the tutorial for that: https://http://localhost:4000/_posts/20019-03-09-install-postfix-nagios.html</li>
 </ul>
 
 <h3 id="resources">Resources</h3>

@@ -1,4 +1,4 @@
-I"hy<h2 id="introduction">Introduction</h2>
+I"�x<h2 id="introduction">Introduction</h2>
 <p>This post will walk you through installing Digital Ocean’s Netbox DCIM/IPAM application on Ubuntu Server.  The Netbox program is a Django/Python application.  In this tutorial the web application is served up by Gunicorn and Apache.  The application saves data to a PostgreSQL database.  All of this runs on Linux, in this case Ubuntu Server 18.x.</p>
 
 <h2 id="goals">Goals</h2>
@@ -48,7 +48,7 @@ The first will be a Host (A) record for the server.  You will use this FQDN name
 </code></pre></div></div>
 <p>The public key will download and you will see a progress bar like this:</p>
 
-<p><img src="http://www.itwritsmall.com/assets/2019-08-06-install-netbox/wgetPublicKey.png" alt="image" /></p>
+<p><img src="http://localhost:4000/assets/2019-08-06-install-netbox/wgetPublicKey.png" alt="image" /></p>
 
 <div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>apt-key add jcameron-key.asc
 </code></pre></div></div>
@@ -63,15 +63,15 @@ The first will be a Host (A) record for the server.  You will use this FQDN name
 <h2 id="step-2--launching-webmin-optional">Step 2- Launching Webmin (optional)</h2>
 <p>Access the Webmin application by opening a browser and going to <code class="highlighter-rouge">https://&lt;your_server_IP&gt;:10000</code>. And whoa!  Make that go away:</p>
 
-<p><img src="http://www.itwritsmall.com/assets/2019-08-06-install-netbox/webminSecurityWarning.png" alt="image" /></p>
+<p><img src="http://localhost:4000/assets/2019-08-06-install-netbox/webminSecurityWarning.png" alt="image" /></p>
 
 <p>Once you pass the certificate warning, you will come to a login screen.</p>
 
-<p><img src="http://www.itwritsmall.com/assets/2019-08-06-install-netbox/webminLoginScreen.png" alt="image" /></p>
+<p><img src="http://localhost:4000/assets/2019-08-06-install-netbox/webminLoginScreen.png" alt="image" /></p>
 
 <p>You can use the username you created during the Ubuntu installation.  After clicking <strong>Sign in</strong> you’ll get the Webmin dashboard.</p>
 
-<p><img src="http://www.itwritsmall.com/assets/2019-08-06-install-netbox/webminDashboard.png" alt="image" /></p>
+<p><img src="http://localhost:4000/assets/2019-08-06-install-netbox/webminDashboard.png" alt="image" /></p>
 
 <p>Webmin deserves more explanation, but that’s not why you called.  Let’s move forward on installing Netbox.</p>
 
@@ -89,7 +89,7 @@ The first will be a Host (A) record for the server.  You will use this FQDN name
 
 <p>The PostgreSQL install returns a lot of info:</p>
 
-<p><img src="http://www.itwritsmall.com/assets/2019-08-06-install-netbox/postgresInstall.png" alt="image" /></p>
+<p><img src="http://localhost:4000/assets/2019-08-06-install-netbox/postgresInstall.png" alt="image" /></p>
 
 <blockquote>
   <p>Note: By default the install is putting data into the /var/lib/postgresql/10/main directory and logs into the /var/log/postgresql/postgresql-10-main.log file.</p>
@@ -100,7 +100,7 @@ The first will be a Host (A) record for the server.  You will use this FQDN name
 <div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>systemctl status postgresql
 </code></pre></div></div>
 
-<p><img src="http://www.itwritsmall.com/assets/2019-08-06-install-netbox/sysctlPostgresStatus.png" alt="image" /></p>
+<p><img src="http://localhost:4000/assets/2019-08-06-install-netbox/sysctlPostgresStatus.png" alt="image" /></p>
 
 <p>This should produce something similar to the above.  Use <code class="highlighter-rouge">CTRL + c</code> to return to the Ubuntu command prompt.</p>
 
@@ -116,7 +116,7 @@ The first will be a Host (A) record for the server.  You will use this FQDN name
 
 <p>This will put you into PostgreSQL command mode.</p>
 
-<p><img src="http://www.itwritsmall.com/assets/2019-08-06-install-netbox/postgresCommandLine.png" alt="image" /></p>
+<p><img src="http://localhost:4000/assets/2019-08-06-install-netbox/postgresCommandLine.png" alt="image" /></p>
 
 <blockquote>
   <p>Warning: Don’t forget the “<code class="highlighter-rouge">;</code>” at the end of each line.</p>
@@ -128,7 +128,7 @@ The first will be a Host (A) record for the server.  You will use this FQDN name
 <span class="gp">postgres=#</span><span class="w"> </span>CREATE USER &lt;your_database_user&gt; WITH PASSWORD <span class="s1">'&lt;your_password&gt;'</span><span class="p">;</span>
 <span class="gp">postgres=#</span><span class="w"> </span>GRANT ALL PRIVILEGES ON DATABASE &lt;your_database_name&gt; TO &lt;your_database_user&gt;<span class="p">;</span>
 </code></pre></div></div>
-<p><img src="http://www.itwritsmall.com/assets/2019-08-06-install-netbox/postgresDatabaseSetup.png" alt="image" /></p>
+<p><img src="http://localhost:4000/assets/2019-08-06-install-netbox/postgresDatabaseSetup.png" alt="image" /></p>
 
 <p>To exit the PostgreSQL command line and return to the Ubuntu command line:
 <code class="highlighter-rouge">postgres=# \q</code></p>
@@ -137,7 +137,7 @@ The first will be a Host (A) record for the server.  You will use this FQDN name
 
 <div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>psql <span class="nt">-U</span> database_user <span class="nt">-W</span> <span class="nt">-h</span> localhost database_name
 </code></pre></div></div>
-<p><img src="http://www.itwritsmall.com/assets/2019-08-06-install-netbox/postgresTestDatabase.png" alt="image" /></p>
+<p><img src="http://localhost:4000/assets/2019-08-06-install-netbox/postgresTestDatabase.png" alt="image" /></p>
 
 <p>Which should get you something similar to the above.  To exit to the Ubuntu command prompt:</p>
 
@@ -175,13 +175,13 @@ The first will be a Host (A) record for the server.  You will use this FQDN name
 <div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>git clone <span class="nt">-b</span> master https://github.com/digitalocean/netbox.git <span class="nb">.</span>
 </code></pre></div></div>
 
-<p><img src="http://www.itwritsmall.com/assets/2019-08-06-install-netbox/gitCloneNetbox.png" alt="image" /></p>
+<p><img src="http://localhost:4000/assets/2019-08-06-install-netbox/gitCloneNetbox.png" alt="image" /></p>
 
 <p>Netbox has a long list of Python modules it requires.  Luckily the good people at Digital Ocean compiled a text file of those modules.  Use pip to install this list:</p>
 
 <div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span><span class="nb">sudo</span> <span class="nt">-H</span> pip3 <span class="nb">install</span> <span class="nt">-r</span> requirements.txt
 </code></pre></div></div>
-<p><img src="http://www.itwritsmall.com/assets/2019-08-06-install-netbox/netboxPipInstall.png" alt="image" /></p>
+<p><img src="http://localhost:4000/assets/2019-08-06-install-netbox/netboxPipInstall.png" alt="image" /></p>
 
 <blockquote>
   <p>This process will take a little time.  Many characters and progress bars will ensue.</p>
@@ -199,7 +199,7 @@ The first will be a Host (A) record for the server.  You will use this FQDN name
 <div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span><span class="nb">cd</span> /opt/netbox/netbox
 <span class="gp">$</span><span class="w"> </span><span class="nb">sudo</span> ./generate_secret_key.py
 </code></pre></div></div>
-<p><img src="http://www.itwritsmall.com/assets/2019-08-06-install-netbox/netboxGenerateSecretKey.png" alt="image" /></p>
+<p><img src="http://localhost:4000/assets/2019-08-06-install-netbox/netboxGenerateSecretKey.png" alt="image" /></p>
 
 <p>Copy and paste the output somewhere (or show off by memorizing it), you’ll need to place it in the configuration file.</p>
 
@@ -252,7 +252,7 @@ SECRET_KEY = ''
 
 <p>Your changes will look similar to this:</p>
 
-<p><img src="http://www.itwritsmall.com/assets/2019-08-06-install-netbox/netboxConfigurationFile.png" alt="image" /></p>
+<p><img src="http://localhost:4000/assets/2019-08-06-install-netbox/netboxConfigurationFile.png" alt="image" /></p>
 
 <p>When you’ve made the changes, save the file and exit the text editor.</p>
 
@@ -268,13 +268,13 @@ SECRET_KEY = ''
 </code></pre></div></div>
 <p>From which will spew much progress:</p>
 
-<p><img src="http://www.itwritsmall.com/assets/2019-08-06-install-netbox/netboxMigration.png" alt="image" /></p>
+<p><img src="http://localhost:4000/assets/2019-08-06-install-netbox/netboxMigration.png" alt="image" /></p>
 
 <p>Create an admin user:</p>
 
 <div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>python3 manage.py createsuperuser
 </code></pre></div></div>
-<p><img src="http://www.itwritsmall.com/assets/2019-08-06-install-netbox/netboxCreateSuperuser.png" alt="image" /></p>
+<p><img src="http://localhost:4000/assets/2019-08-06-install-netbox/netboxCreateSuperuser.png" alt="image" /></p>
 
 <p>Obviously, substitute a valid e-mail address of your own.  I left the Username as root but there is a good argument to be made for changing it.</p>
 
@@ -282,13 +282,13 @@ SECRET_KEY = ''
 
 <div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>python3 manage.py collectstatic <span class="nt">--no-input</span>
 </code></pre></div></div>
-<p><img src="http://www.itwritsmall.com/assets/2019-08-06-install-netbox/netboxCreateStaticHTML.png" alt="image" /></p>
+<p><img src="http://localhost:4000/assets/2019-08-06-install-netbox/netboxCreateStaticHTML.png" alt="image" /></p>
 
 <p>Optionally (I recommend it) load a few initial data objects you can build your inventories from.</p>
 
 <div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>python3 manage.py loaddata initial_data
 </code></pre></div></div>
-<p><img src="http://www.itwritsmall.com/assets/2019-08-06-install-netbox/netboxInstallData.png" alt="image" /></p>
+<p><img src="http://localhost:4000/assets/2019-08-06-install-netbox/netboxInstallData.png" alt="image" /></p>
 
 <p>At this point the Netbox application is ready for testing.</p>
 
@@ -301,11 +301,11 @@ SECRET_KEY = ''
 <div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span><span class="nb">cd</span> /opt/netbox/netbox
 <span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>python3 manage.py runserver 0.0.0.0:8000 <span class="nt">--insecure</span>
 </code></pre></div></div>
-<p><img src="http://www.itwritsmall.com/assets/2019-08-06-install-netbox/netboxTestServer.png" alt="image" /></p>
+<p><img src="http://localhost:4000/assets/2019-08-06-install-netbox/netboxTestServer.png" alt="image" /></p>
 
 <p>In a web browser navigate to <code class="highlighter-rouge">http://&lt;your_server_FQDN&gt;:8000</code></p>
 
-<p><img src="http://www.itwritsmall.com/assets/2019-08-06-install-netbox/netboxFirstLaunch.png" alt="image" /></p>
+<p><img src="http://localhost:4000/assets/2019-08-06-install-netbox/netboxFirstLaunch.png" alt="image" /></p>
 
 <p>You should see your new best DCIM/IPAM friend.  Take a look around the exit by using <code class="highlighter-rouge">CTRL + C</code> in the console.</p>
 
@@ -362,7 +362,7 @@ SECRET_KEY = ''
 </code></pre></div></div>
 <p>Each of these commands will notify you that you have to restart Apache.</p>
 
-<p><img src="http://www.itwritsmall.com/assets/2019-08-06-install-netbox/apacheA2enmod.png" alt="image" /></p>
+<p><img src="http://localhost:4000/assets/2019-08-06-install-netbox/apacheA2enmod.png" alt="image" /></p>
 
 <p>We will take care of that in a bit.</p>
 
@@ -395,7 +395,7 @@ SECRET_KEY = ''
 
 <div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>pip3 <span class="nb">install </span>gunicorn
 </code></pre></div></div>
-<p><img src="http://www.itwritsmall.com/assets/2019-08-06-install-netbox/gunicornInstall.png" alt="image" /></p>
+<p><img src="http://localhost:4000/assets/2019-08-06-install-netbox/gunicornInstall.png" alt="image" /></p>
 
 <p>Create a configuration file for Gunicorn:</p>
 
