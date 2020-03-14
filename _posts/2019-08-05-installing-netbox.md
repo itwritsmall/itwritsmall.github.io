@@ -1,6 +1,6 @@
 ---
 
-layout: post
+layout: blog
 title: "Installing Netbox with Apache and PostgreSQL on Ubuntu"
 categories: [tutorial]
 tags: [netbox, apache, postgresql, ubuntu]

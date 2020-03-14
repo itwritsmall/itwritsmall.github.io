@@ -1,6 +1,6 @@
 ---
 
-layout: post
+layout: blog
 title: "Installing Nagios with Apache on Raspbian or Ubuntu"
 categories: [tutorial]
 tags: [nagios, raspbian, ubuntu, apache, monitor, alert]
