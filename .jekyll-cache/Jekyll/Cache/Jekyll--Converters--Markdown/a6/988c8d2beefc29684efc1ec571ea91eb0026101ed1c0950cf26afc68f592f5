@@ -1,3 +1,0 @@
-I"ç<h2 id="introduction">Introduction</h2>
-<p>This post will walk you through installing Digital Ocean‚Äôs Netbox DCIM/IPAM application on Ubuntu Server.  The Netbox program is a Django/Python application.  In this tutorial the web application is served up by Gunicorn and Apache.  The application saves data to a PostgreSQL database.  All of this runs on Linux, in this case Ubuntu Server 18.x.</p>
-:ET

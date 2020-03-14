@@ -5,7 +5,7 @@ title: "Installing Netbox with Apache and PostgreSQL on Ubuntu"
 categories: [blog]
 tags: [netbox, apache, postgresql, ubuntu]
 summary: "How-to install Digital Ocean's Netbox on Ubuntu Server."
-
+comments: off
 ---
 
 ## Introduction
@@ -486,8 +486,8 @@ Moment of truth, you should be able to reach the home page of the Netbox web app
 Take one final snapshot of your virtual machine if that's where you're installing it.  Next, start using the program.  Next up for me is putting together a series on using the program to document your infrastructure.
 
 ### Sources
-* Digital Ocean Netbox Github Page https://github.com/digitalocean/netbox
-* Netbox Documentation https://netbox.readthedocs.io/en/stable/
+* [Digital Ocean Netbox Github Page](https://github.com/digitalocean/netbox)
+* [Netbox Documentation](https://netbox.readthedocs.io/en/stable/)
 
 ### Revision History
 * 11/8/2018-GM Initial post.  Enjoy.

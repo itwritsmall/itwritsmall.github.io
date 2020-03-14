@@ -1,4 +1,4 @@
-I"f<h2 id="introduction">Introduction</h2>
+I"f<h2 id="introduction">Introduction</h2>
 <p>Nagios is one legacy program among many, many more polished open source monitoring programs.  In its free form, it’s not what anyone would choose in a large, complex environment.  Still, for single site, small-ish networks (say, less than 100 devices) it’s easy to set up, doesn’t require a lot of resources, and is extremely flexible.</p>
 
 <h2 id="goals">Goals</h2>
@@ -400,7 +400,7 @@ First, let’s make sure everything is cool with the Nagios configuration.</p>
 <ul>
   <li>03/09/2019- Writing begins</li>
   <li>06/06/2019- Content review</li>
-  <li>06/06/2019- Style Guide review-</li>
+  <li>06/06/2019- Style Guide review</li>
   <li>06/06/2019- Published</li>
 </ul>
 :ET
