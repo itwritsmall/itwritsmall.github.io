@@ -2,9 +2,9 @@
 
 layout: blog
 title: "Installing Nagios with Apache on Raspbian or Ubuntu"
-categories: [tutorial]
+categories: [blog]
 tags: [nagios, raspbian, ubuntu, apache, monitor, alert]
-excerpt: "How to install Nagios with Apache on Raspbian or Ubuntu to monitor your small/home network"
+summary: "How to install Nagios with Apache on Raspbian or Ubuntu to monitor your small/home network."
 
 ---
 
