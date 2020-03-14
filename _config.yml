@@ -1,40 +1,15 @@
-# Permalinks
-permalink:           pretty
-
-# Setup
-title:              IT Writ Small
-tagline:             Big IT for Small Organizations
-url:                 http://www.itwritsmall.com
-paginate:            5
-baseurl:             ""
-
-# Assets
-#
-# We specify the directory for Jekyll so we can use @imports.
-sass:
-  sass_dir:          _sass
-  style:            :compressed
-
-# About/contact
-author:
-  name:              Greg Monigold
-  url:               http://www.monigold.com
-  email:             feedback@itwritsmall.com
-
-# GEM- add top of site navigation
-pages_list:
-  About: '/about'
-  Archive: '/archive'
-  Categories: '/categories'
-  Tags: '/tags'
-
-# Custom vars
-version:             2.0.0
-github:
-  repo:              https://github.com/poole/poole
-
-# Gems
-# gems: <- deprecated GEM
-plugins:
-  - jekyll-paginate
-  - jekyll-gist
+permalink: /:categories/:title.html
+url: "http://www.itwritsmall.com/"
+full_name: "Greg Monigold"
+first_name: "Greg"
+last_name: "Monigold"
+blog_title: "IT Writ Small "
+author_img_name_path: "/images/users/user.jpg"
+disqus_shortname: "itwritsmall"
+copyright_year: "2020"
+google_analytics_code: ""
+aboutme: "Something about the author here"
+twitter: ""
+github: "itwritsmall"
+facebook: ""
+linkined_url: ""
