@@ -2,9 +2,9 @@
 
 layout: post
 title: "Title"
-categories: [category]
+categories: [blog]
 tags: [tag, tag, tag, tag]
-excerpt: How to <accomplish a task> with <software> on <distro>.
+summary: How to <accomplish a task> with <software> on <distro>.
 ---
 
 How to <accomplish a task> with <software> on <distro>.
