@@ -1,31 +1,24 @@
 ---
 
 layout: blog
-title: "Set Up PowerCLI on Ubuntu Desktop"
+title: "Setting Up a PowerCLI Development Environment on Ubuntu Desktop"
 categories: [blog]
 tags: [PowerCLI, vSphere, Ubuntu, Powershell, Visual Studio Code, Git]
-summary: How to create a vSphere PowerCLI development environment on Ubuntu Linux Desktop.
+summary: How to confiugre a vSphere PowerCLI development environment on Ubuntu Linux Desktop using Microsoft Powershell and Visual Studio along with GitHub.
 ---
-*How to confiugre a vSphere PowerCLI development environment on Ubuntu Linux Desktop.*
 
-### Introduction
+## Introduction
 
-VSphere PowerCLI can be used to automate nearly all elements on VMWare infrastructure.  PowerCLI is a Powershell add-on and Powershell can now be installed on Windows or Linux.  We'll go the Linux route and install onto Ubuntu Desktop.  Other elements that will make up the development environment will include Microsoft Visual Studio Code and Git.
+VSphere PowerCLI can be used to automate the management of nearly all elements of a VMWare infrastructure.  PowerCLI is a Powershell add-on and Powershell can be installed on Windows or Linux.  This post will go the Linux route and install that onto Ubuntu Desktop.  Also available for WIndows and Linux is VIsua Studio Code, which will serve as an IDE for the combo.
 
 ## Goals
 
-1. Install test Powershell
-1. Install and test PowerCLI
-1. Install Visual Studio Code and plug-ins
-1. Install Git
-1. Create a GitHub repository
-1. Synchronize the GitHUb rpository between the development machine and the cloud
+This post will step you through the process of getting a VSphere PowerCLI environment installed so that you can write code that automates the management of VMWare environments.
 
 ## Prerequisites
 
 1. A virtual or physical machine with Ubuntu 18.04 Desktop installed
 1. A VMWare environment running VCenter
-1. A GitHub account
 
 ### Ubuntu 18.04 Desktop
 
@@ -33,18 +26,17 @@ I'm using the 64-bit edition, not sure if it matters but I'm certain I'm not goi
 
 ### VMWare
 
-You'll need a VMWare environment or what is the point of all of this?  If you are using the Free edition of ESXi, PowerCLI will be limited to read only capabilities.  A licensed vCenter installation gets you the ability to write.
-
-### Github
-
-So technically, this isn't a requirement but you're installing PowerCLI to write code and if you're writing code you should be managing versioning.  Github will get you there, a free account will work for your purposes.
+You'll need a VMWare environment or what is the point of all of this?  If you are using the Free edition of ESXi, PowerCLI will be limited to read only capabilities.  A licensed vCenter installation gets you the ability to also write.
 
 ## Tutorial
 
-- Step 1- Installing Powershell
+- Step 1- Installing and Configuring Visual Studio Code
+- Step 2- Installing and Testing Powershell
+- Step 3- Installing and Testing PowerCLI
 
-### Step 1- Installing Powershell
+### Step 1- Installing and Configuring Visual Studio Code
 
+The first five steps in this post could be done in nearly any order, but if Visual Studio Code is installed first then the rest of the tasks can be done from within the program. 
 
 
 ## Step 1,2….N

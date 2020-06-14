@@ -1,6 +1,6 @@
 ---
 
-layout: post
+layout: blog
 title: "Installing Postfix for Nagios using Office365"
 categories: [tutorial]
 tags: [nagios, postfix, office365, mailx, raspbian]
