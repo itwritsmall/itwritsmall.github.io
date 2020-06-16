@@ -228,7 +228,7 @@ Bottom line, a nice mix of `.rrd` and `.xml` files should be in this directory. 
 
 Use a web browser to go to `http://<your nagios host>/PNP4Nagios`.  Use your nagios admin user credentials and you can see this:
 
-![image]({{site.url}}/assets/2019-11-30-install-pnp4nagios/pnp4NagiosWebGui.png)
+![image]({{site.url}}/assets/2019-11-30-install-pnp4nagios/pnp4nagiosWebGUI.png)
 
 You can see at the bottom of the screen that this environment tests page should be removed.  Do just that next.
 
