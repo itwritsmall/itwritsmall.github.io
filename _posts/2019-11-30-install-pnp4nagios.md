@@ -10,8 +10,7 @@ comments: off
 
 ## Introduction
 
-By default, Nagios does not process and store the performance data it receives from checks but it does allow you to pass the data to an external program.  Installing PNP4Nagios
- allows you to store the data in RRD (Round Robin Database) Databases, and provides a rudimentary GUI to display the data.  Installing RRDTool will provide the ability to host and manage the RRD databases.
+By default, Nagios does not process and store the performance data it receives from checks but it does allow you to pass the data to an external program.  Installing PNP4Nagios allows you to store the data in RRD (Round Robin Database) Databases, and provides a rudimentary GUI to display the data.  Installing RRDTool will provide the ability to host and manage the RRD databases.
 
 ## Goals
 
