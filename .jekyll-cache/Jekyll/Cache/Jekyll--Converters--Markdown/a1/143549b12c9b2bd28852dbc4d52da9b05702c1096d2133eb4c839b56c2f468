@@ -1,0 +1,302 @@
+I"C,<h2 id="introduction">Introduction</h2>
+
+<p>By default, Nagios does not process and store the performance data it receives from checks but it does allow you to pass the data to an external program.  Installing PNP4Nagios
+ allows you to store the data in RRD (Round Robin Database) Databases, and provides a rudimentary GUI to display the data.  Installing RRDTool will provide the ability to host and manage the RRD databases.</p>
+
+<h2 id="goals">Goals</h2>
+
+<p>This tutorial will guide you through:</p>
+
+<ul>
+  <li>Installing RRD Tool and other PNP4Nagios
+ prerequisite packages</li>
+  <li>Downloading and Installing PNP4Nagios
+ from source</li>
+  <li>Configure Nagios to pass data to the PNP4Nagios
+ Program</li>
+  <li>Test that PNP4Nagios
+ is passing data to the RRD databases</li>
+  <li>Configure Nagios to display PNP4Nagios
+ stored performance data</li>
+</ul>
+
+<h2 id="prerequisites">Prerequisites</h2>
+
+<p>The tutorial assumes that you have installed Nagios on Linux already.  My tutorial for installing Nagios onto Debian Linux is <a href="https://http://localhost:4000/_posts/2019-06-06-install-nagios-raspbian.md">here</a>.</p>
+
+<h2 id="tutorial-steps">Tutorial Steps</h2>
+
+<ol>
+  <li>Installing RRDTools</li>
+  <li>Downloading PNP4Nagios</li>
+  <li>Compiling and Installing PNP4Nagios</li>
+  <li>Configuring NPCD service</li>
+  <li>Restarting Apache</li>
+  <li>Modifying the <code class="highlighter-rouge">nagios.cfg</code> file</li>
+  <li>Defining Nagios Commands</li>
+  <li>Verifying the Nagios Configuration</li>
+  <li>Verifying PNP4Nagios</li>
+  <li>Removing <code class="highlighter-rouge">install.php</code> file</li>
+  <li>Modifying the <code class="highlighter-rouge">templates.cfg</code> file</li>
+  <li>Modifying the Generic Host and Service definitions</li>
+  <li>Testing the new Nagios configuration and restarting</li>
+  <li>Viewing the performance graphs integrated into the Nagios GUI</li>
+</ol>
+
+<h3 id="step-1--installing-rrdtool">Step 1- Installing RRDTool</h3>
+
+<p>RRDTool is maintained as a Linux package, so install that and some other prerequisites using <code class="highlighter-rouge">apt-get</code>.</p>
+
+<pre><code class="language-BASH">sudo apt-get install -y rrdtool librrds-perl php-gd php-xml
+</code></pre>
+
+<p>Next, we’ll grab the PNP4Nagios code.</p>
+
+<h3 id="step-2--downloading-pnp4nagios-source">Step 2- Downloading PNP4Nagios Source</h3>
+
+<p>PNP4Nagios isn’t maintained as a package, so we’ll download it from the project’s GitHub site.</p>
+
+<pre><code class="language-BASH">cd ~
+sudo wget -O PNP4Nagios.tar.gz https://github.com/lingej/PNP4Nagios/archive/0.6.26.tar.gz
+sudo tar xzf PNP4Nagios.tar.gz
+</code></pre>
+
+<p>With the code downloaded and expanded, move on to compiling and installing.</p>
+
+<h3 id="step-3--compiling-and-installing-pnp4nagios">Step 3- Compiling and Installing PNP4Nagios</h3>
+
+<p>Compile and install the downloaded PNP4Nagios code.</p>
+
+<pre><code class="language-BASH">cd PNP4Nagios-0.6.26
+./configure --with-httpd-conf=/etc/apache2/sites-enabled
+make all
+make install
+make install-webconf
+make install-config
+make install-init
+</code></pre>
+
+<p>The process will look something like this:</p>
+
+<p><img src="http://localhost:4000/assets/2019-11-30-makeInstallPnp4nagiosComplete.png" alt="PNP4Nagios make install" /></p>
+
+<p>You can test the install by pointing a browser at <code class="highlighter-rouge">http://&lt;your nagios host&gt;/PNP4Nagios</code>.  You will see something that looks like this:</p>
+
+<p><img src="http://localhost:4000/assets/2019-11-30-install-pnp4nagios/pnp4NagiosWebGuiHostData.png" alt="image" /></p>
+
+<p>/etc/apache2/sites-enabled/PNP4Nagios
+.conf
+nagios user/group nagios nagios
+/usr/local/PNP4Nagios</p>
+
+<h3 id="step-4--configuring-npcd-service">Step 4- Configuring NPCD service</h3>
+
+<p>systemctl daemon-reload
+systemctl enable npcd.service
+systemctl start npcd.service</p>
+
+<h3 id="step-5--restarting-apache">Step 5- Restarting Apache</h3>
+
+<p>After installing PNP4Nagios
+-webconf you should restart the Apache web server.
+systemctl restart apache2.service</p>
+
+<h3 id="step-6--modifying-the-nagioscfg-file">Step 6- Modifying the <code class="highlighter-rouge">nagios.cfg</code> file</h3>
+
+<pre><code class="language-BASH">sudo nano /usr/local/nagios/etc/nagios.cfg
+</code></pre>
+
+<p>Find and change the line:</p>
+
+<pre><code class="language-BASH">process_performance_data=0
+</code></pre>
+
+<p>to</p>
+
+<pre><code class="language-BASH">process_performance_data=1
+
+host_perfdata_file=/usr/local/PNP4Nagios
+/var/host-perfdata
+host_perfdata_file_template=DATATYPE::HOSTPERFDATA\tTIMET::$TIMET$\tHOSTNAME::$HOSTNAME$\tHOSTPERFDATA::$HOSTPERFDATA$\tHOSTCHECKCOMMAND::$HOSTCHECKCOMMAND$\tHOSTSTATE::$HOSTSTATE$\tHOSTSTATETYPE::$HOSTSTATETYPE$
+host_perfdata_file_mode=a
+host_perfdata_file_processing_interval=15
+host_perfdata_file_processing_command=process-host-perfdata-file-bulk-npcd
+
+service_perfdata_file=/usr/local/PNP4Nagios
+/var/service-perfdata
+service_perfdata_file_template=DATATYPE::SERVICEPERFDATA\tTIMET::$TIMET$\tHOSTNAME::$HOSTNAME$\tSERVICEDESC::$SERVICEDESC$\tSERVICEPERFDATA::$SERVICEPERFDATA$\tSERVICECHECKCOMMAND::$SERVICECHECKCOMMAND$\tHOSTSTATE::$HOSTSTATE$\tHOSTSTATETYPE::$HOSTSTATETYPE$\tSERVICESTATE::$SERVICESTATE$\tSERVICESTATETYPE::$SERVICESTATETYPE$
+service_perfdata_file_mode=a
+service_perfdata_file_processing_interval=15
+service_perfdata_file_processing_command=process-service-perfdata-file-bulk-npcd
+</code></pre>
+
+<p>Save and exit the <code class="highlighter-rouge">nagios.cfg</code> file.</p>
+
+<h3 id="step-7--defining-nagios-commands">Step 7- Defining Nagios Commands</h3>
+
+<pre><code class="language-BASH">sudo nano /usr/local/nagios/etc/objects/commands.cfg
+</code></pre>
+
+<p>Add this text at the bottom of the file</p>
+
+<pre><code class="language-BASH">################################################################################
+#
+# PNP4Nagios
+ COMMANDS
+#
+# Added &lt;date&gt; &lt;initials&gt;
+#
+#################################################################################
+
+define command {
+    command_name    process-service-perfdata-file-bulk-npcd
+    command_line    /bin/mv /usr/local/PNP4Nagios
+
+    /var/service-perfdata /usr/local/PNP4Nagios
+
+    /var/spool/service-p$
+}
+
+define command {
+    command_name    process-host-perfdata-file-bulk-npcd
+    command_line    /bin/mv /usr/local/PNP4Nagios
+
+    /var/host-perfdata /usr/local/PNP4Nagios
+
+    /var/spool/host-perfdat$
+}
+</code></pre>
+
+<p>Save and exit the <code class="highlighter-rouge">commands.cfg</code> file</p>
+
+<h3 id="step-8--verifying-the-nagios-configuration">Step 8- Verifying the Nagios Configuration</h3>
+
+<pre><code class="language-BASH">sudo /usr/local/nagios/bin/nagios -v /usr/local/nagios/etc/nagios.cfg
+</code></pre>
+
+<p>If things are OK restart the Nagios service</p>
+
+<pre><code class="language-BASH">sudo systemctl restart nagios.service
+</code></pre>
+
+<h3 id="step-9--verifying-pnp4nagios-is-operating">Step 9- Verifying PNP4Nagios is operating</h3>
+
+<pre><code class="language-BASH">cd /usr/local/PNP4Nagios
+/var/perfdata/localhost/
+</code></pre>
+
+<pre><code class="language-BASH">ls
+</code></pre>
+
+<p>You may see few files if you do thistoo  quickly.</p>
+
+<p>If you wait(ed) a little longer you’ll see more.</p>
+
+<p>You can also use a web browser to go to <code class="highlighter-rouge">http://&lt;your nagios host&gt;/PNP4Nagios</code>.  Use your nagios admin user credenitals and you can see this:</p>
+
+<h3 id="step-10--removing-installphp-file">Step 10- Removing <code class="highlighter-rouge">install.php</code> file</h3>
+
+<pre><code class="language-BASH">$ sudo rm -f /usr/lcoal/PNP4Nagios
+/share/install.php
+</code></pre>
+
+<p>Return to <code class="highlighter-rouge">http://&lt;your nagios host&gt;/PNP4Nagios</code> and refresh the browser and you will see something similar to this:</p>
+
+<p>This will default to the first host in your host list, to see another change</p>
+
+<p><code class="highlighter-rouge">http://&lt;your_nagios_host&gt;/PNP4Nagios
+/graph?host=&lt;first_host_in_the_list&gt;</code></p>
+
+<p>to</p>
+
+<p><code class="highlighter-rouge">http://&lt;your_nagios_host&gt;/PNP4Nagios/graph?host=&lt;the host you want to see&gt;</code></p>
+
+<h3 id="step-11--modifying-the-templatescfg-file">Step 11- Modifying the <code class="highlighter-rouge">templates.cfg</code> file</h3>
+
+<pre><code class="language-BASH">sudo nano /usr/local/nagios/etc/objects/templates.cfg
+</code></pre>
+
+<p>At the bottom of the file add:</p>
+
+<pre><code class="language-BASH">#######################################################################################
+#
+# PNP4Nagios
+ TEMPLATES
+#
+# Added &lt;DATE&gt; &lt;MODIFIED BY&gt;
+#
+#######################################################################################
+
+define host {
+   name       host-pnp
+   action_url /PNP4Nagios
+
+   /index.php/graph?host=$HOSTNAME$&amp;srv=_HOST_
+   register   0
+}
+
+define service {
+   name       service-pnp
+   action_url /PNP4Nagios
+
+   /index.php/graph?host=$HOSTNAME$&amp;srv=$SERVICEDESC$
+   register   0
+}
+</code></pre>
+
+<h3 id="step-12--modifying-the-generic-host-and-service-definitions">Step 12- Modifying the Generic Host and Service definitions</h3>
+
+<pre><code class="language-BASH">sudo nano /usr/local/nagios/etc/objects/templates.cfg
+</code></pre>
+
+<p>Find the <code class="highlighter-rouge">Generic host definition template</code> and add the line <code class="highlighter-rouge">use    host-pnp    ;Added &lt;date&gt;&lt;modifier&gt;</code> so that it looks something like this:</p>
+
+<p>Do the same with the  <code class="highlighter-rouge">Generic service definition template</code> and add the line <code class="highlighter-rouge">use    host-pnp    ;Added &lt;date&gt;&lt;modifier&gt;</code> so that it looks something like this:</p>
+
+<h3 id="step-13--testing-the-new-nagios-configuration-and-restarting">Step 13- Testing the new Nagios configuration and restarting</h3>
+
+<pre><code class="language-BASH">sudo /usr/local/nagios/bin/nagios -v /usr/local/nagios/etc/nagios.cfg
+</code></pre>
+
+<p>If things are OK restart the Nagios service</p>
+
+<pre><code class="language-BASH">sudo systemctl restart nagios.service
+</code></pre>
+
+<h3 id="step-14--viewing-the-performance-graphs-integrated-into-the-nagios-gui">Step 14- Viewing the performance graphs integrated into the Nagios GUI</h3>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Go to the Nagios Web interface <code class="highlighter-rouge">http:&lt;your_nagios_host&gt;\nagios"</code> and use your credentials to login.  Click <code class="highlighter-rouge">Curent Status</code></td>
+      <td><code class="highlighter-rouge">Hosts</code>.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>You’ll notice a new icon by each host:</p>
+
+<p>Click that and you will see graphs for each service recorded for the host.</p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<ul>
+  <li>Summary</li>
+  <li>What to do next</li>
+</ul>
+
+<h3 id="resources">Resources</h3>
+
+<ul>
+  <li><a href="https://support.nagios.com/kb/article/nagios-core-performance-graphs-using-PNP4Nagios">https://support.nagios.com/kb/article/nagios-core-performance-graphs-using-PNP4Nagios</a></li>
+</ul>
+
+<h3 id="revision-history">Revision History</h3>
+
+<ul>
+  <li>11/30/2019- Writing begins</li>
+  <li>Content review-</li>
+  <li>Style Guide review-</li>
+  <li>Published-</li>
+</ul>
+:ET
