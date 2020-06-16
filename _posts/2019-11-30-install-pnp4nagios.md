@@ -246,8 +246,7 @@ Return to `http://<your nagios host>/PNP4Nagios` and refresh the browser and you
 
 This will default to the first host in your host list, to see another change
 
-`http://<your_nagios_host>/PNP4Nagios
-/graph?host=<first_host_in_the_list>`
+`http://<your_nagios_host>/PNP4Nagios/graph?host=<first_host_in_the_list>`
 
 to
 
@@ -292,7 +291,7 @@ Don't close the file just yet, this is only the first part of integrating the PN
 
 ### Step 12- Modifying the Generic Host and Service definitions
 
-Now that you have the templates created, direct the **hosts** and **Services** to use them.
+Now that you have the templates created, direct the **hosts** and **services** to use them.
 
 ``` BASH
 sudo nano /usr/local/nagios/etc/objects/templates.cfg
@@ -326,13 +325,13 @@ If things are OK restart the Nagios service
 sudo systemctl restart nagios.service
 ```
 
-Let's look at the rsule of all of this work on the Nagios GUI.
+Let's look at the results of all of this work on the Nagios GUI.
 
 ### Step 14- Viewing the performance graphs integrated into the Nagios GUI
 
 All of the previous changes should make the PNP4Nagios visualizations easily accessible from the Nagios GUI>
 
-Go to the Nagios Web interface `http:<your_nagios_host>\nagios"` and use your credentials to login.  Click `Curent Status` | `Hosts`.
+Go to the Nagios Web interface `http://<your_nagios_host>/nagios` and use your credentials to login.  Click `Curent Status | Hosts`.
 
 You'll notice a new icon by each host:
 
@@ -342,13 +341,13 @@ Click that and you will see graphs for each service recorded for the host.
 
 ![image]({{site.url}}/assets/2019-11-30-install-pnp4nagios/PNP4NagiosIntegratedNagiosGUIDetail.png)
 
-Dig yourself, you've made Nagios much more useful.
+Dig yourself!  You've made Nagios much more useful.
 
 ## Conclusion
 
 By installing and configuring PNP4Nagios you've enabled saving historical performance monitor data in Nagios.  You've also integrated some serviceable though not particularly attractive visualizations.
 
-Creating this database linkeage allows you to up the visualization game if you want.  Specifically, it's the gateway to using `Grafana` to build dashboards from the Nagios data.
+Creating this database linkage allows you to up the visualization game if you want.  Specifically, it's the gateway to using `Grafana` to build dashboards from the Nagios data.
 
 ### Resources
 
