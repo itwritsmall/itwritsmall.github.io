@@ -9,7 +9,7 @@ summary: How to confiugre a vSphere PowerCLI development environment on Ubuntu L
 
 ## Introduction
 
-VSphere PowerCLI can be used to automate the management of nearly all elements of a VMWare infrastructure.  PowerCLI is a Powershell add-on and Powershell can be installed on Windows or Linux.  This post will go the Linux route and install that onto Ubuntu Desktop.  Also available for WIndows and Linux is VIsua Studio Code, which will serve as an IDE for the combo.
+VSphere PowerCLI can be used to automate the management of nearly all elements of a VMWare infrastructure.  PowerCLI is a Powershell add-on and Powershell can be installed on Windows or Linux.  This post will go the Linux route and install Powershell and PowerCLI onto Ubuntu Desktop.  Also available for WIndows and Linux is VIsua Studio Code, which will serve as an IDE for the combo.
 
 ## Goals
 
@@ -17,7 +17,7 @@ This post will step you through the process of getting a VSphere PowerCLI enviro
 
 ## Prerequisites
 
-1. A virtual or physical machine with Ubuntu 18.04 Desktop installed
+1. A virtual or physical machine with Ubuntu 18.04 (you can go newer, but this is written based on that version) Desktop installed
 1. A VMWare environment running VCenter
 
 ### Ubuntu 18.04 Desktop
@@ -36,16 +36,12 @@ You'll need a VMWare environment or what is the point of all of this?  If you ar
 
 ### Step 1- Installing and Configuring Visual Studio Code
 
-The first five steps in this post could be done in nearly any order, but if Visual Studio Code is installed first then the rest of the tasks can be done from within the program. 
-
+The first five steps in this post could be done in nearly any order, but if Visual Studio Code is installed first then the rest of the tasks can be done from within the program.
 
 ## Step 1,2….N
-		○ Step # - <-ing word> 
-		○ Introductory sentence
-			§ Description of step/code
-			§ Code block
-			§ Resulting image (opt)
-		○ Transition sentence
+
+
+
 ## Conclusion
 		○ Summary
 		○ What to do next
