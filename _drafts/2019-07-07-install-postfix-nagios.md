@@ -7,7 +7,6 @@ tags: [nagios, postfix, office365, mailx, raspbian]
 excerpt: How to install Postfix with Nagios and Office365 on Raspbian.
 ---
 
-
 ## Introduction
 Once you have installed Nagios and have it configured for simple monitoring a logical next step is to configure e-mail alerting.   
 

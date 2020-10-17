@@ -53,7 +53,7 @@ Let's get started then.
 
 ## Tutorial
 
-We'll do a simple install of Nagios to get you started doing some simple monitoring.  Simply:
+We'll do a simple install of Nagios to get started doing some simple monitoring.  Simply:
 
 1. Install Pre-Requisite Packages
 1. Create Users and Groups
@@ -344,8 +344,13 @@ sudo ln -s /etc/init.d/nagios /etc/rc5.d/nagios
 Now, let's start up Nagios as a service for the first time.
 
  ``` bash
-sudo /etc/init.d/nagios start
-sudo service nagios start
+sudo systemctl start nagios
+sudo systemctl enable nagios
+```
+
+You can test it at any time.
+``` bash
+sudo systemctl staus nagios
 ```
 
 If you go back to the web interface (`https://<machine name or IP>/nagios`) and look at the menu on the left side you will see a **Current Status** section.
@@ -413,7 +418,7 @@ You should see something like this (depending on how many hosts you defined):
 Now, restart Nagios:
 
 ``` bash
-sudo service nagios restart
+sudo systemctl nagios restart
 ```
 
 Open up the web interface and go to the **Hosts** selection in the **Current Status** section.  You should see:
