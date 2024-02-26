@@ -1,11 +1,16 @@
 ---
-
+title: Installing Netbox with Apache and PostgreSQL on Ubuntu
+date: 2019-08-05 00:00:00 Z
+categories:
+- blog
+tags:
+- netbox
+- apache
+- postgresql
+- ubuntu
 layout: blog
-title: "Installing Netbox with Apache and PostgreSQL on Ubuntu"
-categories: [blog]
-tags: [netbox, apache, postgresql, ubuntu]
-summary: "How-to install Digital Ocean's Netbox on Ubuntu Server."
-comments: off
+summary: How-to install Digital Ocean's Netbox on Ubuntu Server.
+comments: false
 ---
 
 ## Introduction

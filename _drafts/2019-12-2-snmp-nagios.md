@@ -1,9 +1,11 @@
 ---
-
+title: SNMP Monitoring Using Nagios Core
+date: 2019-12-02 00:00:00 Z
+categories:
+- category
+tags:
+- tag
 layout: post
-title: "SNMP Monitoring Using Nagios Core"
-categories: [category]
-tags: [tag, tag, tag, tag]
 excerpt: How to <accomplish a task> with <software> on <distro>.
 ---
 

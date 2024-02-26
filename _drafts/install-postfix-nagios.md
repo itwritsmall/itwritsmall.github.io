@@ -1,9 +1,15 @@
 ---
-
+title: Installing Postfix for Nagios using Office365
+date: 2019-07-07 00:00:00 Z
+categories:
+- tutorial
+tags:
+- nagios
+- postfix
+- office365
+- mailx
+- raspbian
 layout: blog
-title: "Installing Postfix for Nagios using Office365"
-categories: [tutorial]
-tags: [nagios, postfix, office365, mailx, raspbian]
 excerpt: How to install Postfix with Nagios and Office365 on Raspbian.
 ---
 

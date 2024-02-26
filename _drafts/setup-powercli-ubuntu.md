@@ -1,9 +1,19 @@
 ---
+title: How To Set Up PowerCLI, PowerShell and Visual Studio Code on Ubuntu Desktop
+  18.04
+date: 2020-05-25 00:00:00 Z
+categories:
+- blog
+tags:
+- PowerCLI
+- vSphere
+- Ubuntu
+- PowerShell
+- Visual Studio Code
+- Git
 layout: blog
-title: "How To Set Up PowerCLI, PowerShell and Visual Studio Code on Ubuntu Desktop 18.04"
-categories: [blog]
-tags: [PowerCLI, vSphere, Ubuntu, PowerShell, Visual Studio Code, Git]
-summary: How to confiugre a vSphere PowerCLI development environment on Ubuntu Linux Desktop using Microsoft PowerShell and Visual Studio along with GitHub.
+summary: How to confiugre a vSphere PowerCLI development environment on Ubuntu Linux
+  Desktop using Microsoft PowerShell and Visual Studio along with GitHub.
 ---
 
 ## Introduction

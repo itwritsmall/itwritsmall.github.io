@@ -1,11 +1,19 @@
 ---
-
+title: Installing Nagios with Apache on Raspbian or Ubuntu
+date: 2019-06-06 00:00:00 Z
+categories:
+- blog
+tags:
+- nagios
+- raspbian
+- ubuntu
+- apache
+- monitor
+- alert
 layout: blog
-title: "Installing Nagios with Apache on Raspbian or Ubuntu"
-categories: [blog]
-tags: [nagios, raspbian, ubuntu, apache, monitor, alert]
-summary: "How to install Nagios with Apache on Raspbian or Ubuntu to monitor your small/home network."
-comments: off
+summary: How to install Nagios with Apache on Raspbian or Ubuntu to monitor your small/home
+  network.
+comments: false
 ---
 
 ## Introduction

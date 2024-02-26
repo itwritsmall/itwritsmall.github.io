@@ -1,10 +1,14 @@
 ---
-
+title: Building an Automated, Virtual Lab
+date: 2021-09-11 00:00:00 Z
+categories:
+- blog
+tags:
+- Automated Lab
+- Windows Server
 layout: post
-title: "Building an Automated, Virtual Lab"
-categories: [blog]
-tags: [Automated Lab, Windows Server]
-summary: Building an evaluation environment using (mostly) free software on (mostly) consumer grade hardware.
+summary: Building an evaluation environment using (mostly) free software on (mostly)
+  consumer grade hardware.
 ---
 
 Building an evaluation environment using (mostly) free software on (mostly) consumer grade hardware.

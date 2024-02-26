@@ -1,9 +1,11 @@
 ---
-
+title: Title
+date: 2019-12-01 00:00:00 Z
+categories:
+- category
+tags:
+- tag
 layout: post
-title: "Title"
-categories: [category]
-tags: [tag, tag, tag, tag]
 excerpt: How to <accomplish a task> with <software> on <distro>.
 ---
 

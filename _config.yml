@@ -1,15 +1,25 @@
-permalink: /:categories/:title.html
-url: "http://www.itwritsmall.com/"
-full_name: "Greg Monigold"
-first_name: "Greg"
-last_name: "Monigold"
-blog_title: "IT Writ Small "
+---
+title: Itwritsmall.Github.Io
+timezone: UTC
+collections:
+  posts:
+    title: Posts
+    output: true
+  uploads:
+    title: Uploads
+    output: true
+permalink: "/:categories/:title.html"
+url: http://www.itwritsmall.com/
+full_name: Greg Monigold
+first_name: Greg
+last_name: Monigold
+blog_title: 'IT Writ Small '
 author_img_name_path: "/images/users/user.jpg"
-disqus_shortname: "itwritsmall"
-copyright_year: "2020"
-google_analytics_code: ""
-aboutme: "Something about the author here"
-twitter: ""
-github: "itwritsmall"
-facebook: ""
-linkined_url: ""
+disqus_shortname: itwritsmall
+copyright_year: '2020'
+google_analytics_code: ''
+aboutme: Something about the author here
+twitter: ''
+github: itwritsmall
+facebook: ''
+linkined_url: ''

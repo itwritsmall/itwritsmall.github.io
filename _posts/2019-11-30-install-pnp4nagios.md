@@ -1,11 +1,16 @@
 ---
-
+title: Installing PNP4Nagios and RRDTool for Nagios on Debian Linux
+date: 2019-11-30 00:00:00 Z
+categories:
+- blog
+tags:
+- Nagios
+- RRDTool
+- PNP4Nagios
+- Debian
 layout: blog
-title: "Installing PNP4Nagios and RRDTool for Nagios on Debian Linux"
-categories: [blog]
-tags: [Nagios, RRDTool, PNP4Nagios, Debian]
-summary: "How to install PNP4Nagios and RRDTool for Nagios on Debian Linux."
-comments: off
+summary: How to install PNP4Nagios and RRDTool for Nagios on Debian Linux.
+comments: false
 ---
 
 ## Introduction

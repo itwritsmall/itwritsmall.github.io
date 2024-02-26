@@ -1,9 +1,11 @@
 ---
-
+title: Title
+date: 2021-09-11 00:00:00 Z
+categories:
+- blog
+tags:
+- tag
 layout: post
-title: "Title"
-categories: [blog]
-tags: [tag, tag, tag, tag]
 summary: How to install OpenSSH Server on Hyper-V Server 2019.
 ---
 

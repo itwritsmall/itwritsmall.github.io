@@ -1,9 +1,13 @@
 ---
-
+title: Title
 layout: post
-title: "Title"
-categories: [blog]
-tags: [tag, tag, tag, tag]
+categories:
+- blog
+tags:
+- tag
+- tag
+- tag
+- tag
 summary: How to <accomplish a task> with <software> on <distro>.
 ---
 
